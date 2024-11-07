@@ -16,7 +16,7 @@ export default function App() {
     Roboto_700Bold,
   })
 
-  if (fontsLoaded) {
+  if (!fontsLoaded) {
     return <LoadingIndicator />
   }
 
