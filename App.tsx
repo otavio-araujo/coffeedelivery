@@ -1,4 +1,5 @@
-import { ActivityIndicator } from "react-native"
+import React from "react"
+import { StatusBar } from "expo-status-bar"
 
 import { useFonts } from "expo-font"
 import { Baloo2_700Bold } from "@expo-google-fonts/baloo-2"
@@ -20,5 +21,14 @@ export default function App() {
     return <LoadingIndicator />
   }
 
-  return <Routes />
+  return (
+    <>
+      <StatusBar
+        translucent
+        backgroundColor={THEME.COLORS.PURPLE_DARK}
+        style="light"
+      />
+      <Routes />
+    </>
+  )
 }
