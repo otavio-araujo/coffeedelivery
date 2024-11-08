@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native"
 import { THEME } from "./theme"
 
-export const styles = StyleSheet.create({
+export const globalStyles = StyleSheet.create({
   titleXL: {
     fontFamily: THEME.FONTS.BALOO_BOLD,
     fontSize: THEME.FONT_SIZES.TITLE_XL,

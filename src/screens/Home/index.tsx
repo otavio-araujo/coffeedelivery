@@ -1,13 +1,16 @@
 import { useEffect } from "react"
 import { StatusBar } from "expo-status-bar"
-import { Dimensions, Text, View } from "react-native"
+import { Dimensions, Text, TouchableOpacity, View } from "react-native"
 import { Canvas, Rect } from "@shopify/react-native-skia"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { useSharedValue, withTiming } from "react-native-reanimated"
 
-import { THEME } from "@styles/theme"
-
 import { styles } from "./styles"
+import { THEME } from "@styles/theme"
+import { globalStyles } from "@styles/globals"
+
+import MapPin from "phosphor-react-native/src/fill/MapPin"
+import ShoppingCart from "phosphor-react-native/src/fill/ShoppingCart"
 
 export function HomeScreen() {
   const { top } = useSafeAreaInsets()
@@ -17,7 +20,7 @@ export function HomeScreen() {
   const topRectangleHeight = useSharedValue(40)
 
   useEffect(() => {
-    topRectangleHeight.value = withTiming(342, { duration: 700 })
+    topRectangleHeight.value = withTiming(342, { duration: 500 })
   }, [])
 
   return (
@@ -45,8 +48,15 @@ export function HomeScreen() {
         />
       </Canvas>
       <View style={styles.headerContainer}>
-        <Text>Porto Alegre</Text>
-        <Text>Icon</Text>
+        <View style={styles.locationContainer}>
+          <MapPin size={20} color={THEME.COLORS.PURPLE} />
+          <Text style={[styles.locationText, globalStyles.textSM]}>
+            Porto Alegre, RS
+          </Text>
+        </View>
+        <TouchableOpacity style={styles.cartContainer}>
+          <ShoppingCart size={20} color={THEME.COLORS.YELLOW_DARK} />
+        </TouchableOpacity>
       </View>
     </View>
   )
