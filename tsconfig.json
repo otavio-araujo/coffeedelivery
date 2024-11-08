@@ -3,13 +3,13 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": ["./src/*"],
-      "@/types*": ["./src/@types*"],
-      "@/assets*": ["./src/assets*"],
-      "@/components*": ["./src/components*"],
-      "@/screens*": ["./src/screens*"],
-      "@/styles*": ["./src/styles*"],
-      "@/utils*": ["./src/utils*"]
+      "@types/*": ["./src/@types/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@components/*": ["./src/components/*"],
+      "@routes/*": ["./src/routes/*"],
+      "@screens/*": ["./src/screens/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   }
 }
