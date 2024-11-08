@@ -1,9 +1,21 @@
 import { useEffect } from "react"
 import { StatusBar } from "expo-status-bar"
-import { Dimensions, Text, TouchableOpacity, View } from "react-native"
+import {
+  Dimensions,
+  Easing,
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native"
 import { Canvas, Rect } from "@shopify/react-native-skia"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { useSharedValue, withTiming } from "react-native-reanimated"
+import Animated, {
+  FadeInDown,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated"
 
 import { styles } from "./styles"
 import { THEME } from "@styles/theme"
@@ -11,16 +23,21 @@ import { globalStyles } from "@styles/globals"
 
 import MapPin from "phosphor-react-native/src/fill/MapPin"
 import ShoppingCart from "phosphor-react-native/src/fill/ShoppingCart"
+import MagnifyingGlass from "phosphor-react-native/src/regular/MagnifyingGlass"
 
 export function HomeScreen() {
   const { top } = useSafeAreaInsets()
+
+  const BG_RECTANGLE_HEIGHT = 420
 
   const windowWidth = Dimensions.get("window").width
 
   const topRectangleHeight = useSharedValue(40)
 
   useEffect(() => {
-    topRectangleHeight.value = withTiming(342, { duration: 500 })
+    topRectangleHeight.value = withTiming(BG_RECTANGLE_HEIGHT, {
+      duration: 500,
+    })
   }, [])
 
   return (
@@ -32,7 +49,7 @@ export function HomeScreen() {
       />
       <Canvas
         style={{
-          height: 342,
+          height: BG_RECTANGLE_HEIGHT,
           width: windowWidth,
           position: "absolute",
           top: 0,
@@ -47,6 +64,7 @@ export function HomeScreen() {
           color={THEME.COLORS.GREY_100}
         />
       </Canvas>
+      {/* Header */}
       <View style={styles.headerContainer}>
         <View style={styles.locationContainer}>
           <MapPin size={20} color={THEME.COLORS.PURPLE} />
@@ -58,6 +76,29 @@ export function HomeScreen() {
           <ShoppingCart size={20} color={THEME.COLORS.YELLOW_DARK} />
         </TouchableOpacity>
       </View>
+
+      {/* Search */}
+      <Animated.View
+        entering={FadeInDown.delay(400).duration(300)}
+        style={styles.searchContainer}
+      >
+        <Text style={[globalStyles.titleMD, globalStyles.textWHITE]}>
+          Encontre o café perfeito para qualquer hora do dia
+        </Text>
+        <View style={styles.searchInputContainer}>
+          <MagnifyingGlass size={16} color={THEME.COLORS.GREY_400} />
+
+          <TextInput
+            style={[styles.searchInput, globalStyles.textSM]}
+            placeholder="Pesquisar"
+            placeholderTextColor={THEME.COLORS.GREY_400}
+          />
+        </View>
+        <Image
+          source={require("@assets/catalogue/coffee-bean.png")}
+          style={styles.coffeeBean}
+        />
+      </Animated.View>
     </View>
   )
 }

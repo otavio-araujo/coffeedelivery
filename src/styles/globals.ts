@@ -67,4 +67,8 @@ export const globalStyles = StyleSheet.create({
     fontSize: THEME.FONT_SIZES.BUTTON,
     lineHeight: THEME.LINE_HEIGHTS.BUTTON,
   },
+
+  textWHITE: {
+    color: THEME.COLORS.WHITE,
+  },
 })
