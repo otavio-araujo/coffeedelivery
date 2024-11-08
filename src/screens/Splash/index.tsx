@@ -1,17 +1,23 @@
 import React, { useEffect } from "react"
 import { StatusBar } from "expo-status-bar"
-import { View, Image, Dimensions } from "react-native"
+import { View, Dimensions } from "react-native"
+import { useNavigation } from "@react-navigation/native"
+
 import { Canvas, Circle } from "@shopify/react-native-skia"
 
 import { styles } from "./styles"
 import Animated, {
+  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from "react-native-reanimated"
+
 import { THEME } from "@styles/theme"
 
 export function SplashScreen() {
+  const navigation = useNavigation()
+
   const windowHeight = Dimensions.get("window").height
   const windowWidth = Dimensions.get("window").width
 
@@ -35,6 +41,12 @@ export function SplashScreen() {
   const circleSize = useSharedValue(200)
   const circleOpacity = useSharedValue(0)
 
+  function goToHome() {
+    setTimeout(() => {
+      navigation.navigate("home" as never)
+    }, 700)
+  }
+
   useEffect(() => {
     circleSize.value = withTiming(windowHeight, { duration: 700 })
     circleOpacity.value = withTiming(1, { duration: 700 })
@@ -43,6 +55,7 @@ export function SplashScreen() {
     logoTextOpacity.value = withTiming(1, { duration: 700 }, (finished) => {
       "worklet"
       if (finished) {
+        runOnJS(goToHome)()
       }
     })
   }, [])

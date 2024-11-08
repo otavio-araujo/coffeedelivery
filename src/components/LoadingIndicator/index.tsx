@@ -1,7 +1,9 @@
-import { View, ActivityIndicator } from "react-native"
-import { THEME } from "@/styles/theme"
-import { styles } from "./styles"
 import { StatusBar } from "expo-status-bar"
+import { View, ActivityIndicator } from "react-native"
+
+import { THEME } from "@styles/theme"
+
+import { styles } from "./styles"
 
 const LoadingIndicator = () => {
   return (
