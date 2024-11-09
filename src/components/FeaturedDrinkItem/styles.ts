@@ -5,10 +5,12 @@ export const styles = StyleSheet.create({
   touchableContainer: {
     alignItems: "center",
     width: 208,
-    top: -88,
+    marginTop: 32,
   },
 
   container: {
+    flexGrow: 1,
+
     borderWidth: 1,
     borderTopLeftRadius: 6,
     borderTopRightRadius: 36,
@@ -35,10 +37,10 @@ export const styles = StyleSheet.create({
   },
 
   image: {
+    position: "absolute",
+    top: -32,
     width: 120,
     height: 120,
-
-    top: 88,
 
     zIndex: 1,
   },
@@ -60,6 +62,7 @@ export const styles = StyleSheet.create({
 
   priceContainer: {
     flexDirection: "row",
+    marginTop: "auto",
     alignItems: "baseline",
     gap: 4,
   },

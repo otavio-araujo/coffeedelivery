@@ -4,6 +4,7 @@ import { StyleSheet } from "react-native"
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: THEME.COLORS.PURPLE_DARK,
   },
 
   headerContainer: {
@@ -26,6 +27,11 @@ export const styles = StyleSheet.create({
 
   cartContainer: {
     padding: 8,
+  },
+
+  testContainer: {
+    backgroundColor: THEME.COLORS.RED_DARK,
+    flexDirection: "row",
   },
 
   searchContainer: {

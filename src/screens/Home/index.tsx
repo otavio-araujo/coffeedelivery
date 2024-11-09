@@ -86,8 +86,14 @@ export function HomeScreen() {
       </View>
 
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+        <View style={styles.testContainer}>
+          <FeaturedDrinkItem drink={drinks[0]} />
+          <FeaturedDrinkItem drink={drinks[1]} />
+          <FeaturedDrinkItem drink={drinks[2]} />
+        </View>
+
         {/* Search */}
-        <Animated.View
+        {/* <Animated.View
           entering={FadeInDown.delay(400).duration(300)}
           style={styles.searchContainer}
         >
@@ -107,31 +113,7 @@ export function HomeScreen() {
             source={require("@assets/catalogue/coffee-bean.png")}
             style={styles.coffeeBean}
           />
-        </Animated.View>
-
-        {/* Featured Drinks */}
-        <Animated.View
-          entering={FadeInRight.delay(500).duration(300)}
-          style={styles.featuredDrinksContainer}
-        >
-          <Carousel
-            data={featuredDrinks}
-            style={{
-              width: windowWidth,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            width={PAGE_WIDTH}
-            renderItem={({ item }) => <FeaturedDrinkItem drink={item} />}
-            loop={false}
-            mode="parallax"
-            modeConfig={{
-              parallaxScrollingScale: 1,
-              parallaxScrollingOffset: 0,
-              parallaxAdjacentItemScale: 0.7,
-            }}
-          />
-        </Animated.View>
+        </Animated.View> */}
       </ScrollView>
     </View>
   )
