@@ -1,3 +1,7 @@
+const latte = require("@assets/catalogue/latte.png")
+const mochaccino = require("@assets/catalogue/mochaccino.png")
+const irlandes = require("@assets/catalogue/irlandes.png")
+
 enum DrinkCategory {
   TRADITIONAL = "tradicional",
   SWEET = "doce",
@@ -11,6 +15,7 @@ interface Drinks {
   price: number
   category: DrinkCategory
   isFeatured: boolean
+  image: string
 }
 
 const drinks: Drinks[] = [
@@ -21,6 +26,7 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.TRADITIONAL,
     isFeatured: false,
+    image: "expresso.png",
   },
 
   {
@@ -30,6 +36,7 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.TRADITIONAL,
     isFeatured: false,
+    image: "americano.png",
   },
 
   {
@@ -39,6 +46,7 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.TRADITIONAL,
     isFeatured: false,
+    image: "expresso-cremoso.png",
   },
 
   {
@@ -48,6 +56,7 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.TRADITIONAL,
     isFeatured: true,
+    image: latte,
   },
 
   {
@@ -57,6 +66,7 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.TRADITIONAL,
     isFeatured: false,
+    image: "cafe-gelado.png",
   },
 
   {
@@ -66,15 +76,17 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.SWEET,
     isFeatured: false,
+    image: "capuccino.png",
   },
 
   {
     id: 7,
-    name: "Mocaccino",
+    name: "Mochaccino",
     description: "Café expresso com calda de chocolate, pouco leite e espuma",
     price: 990,
     category: DrinkCategory.SWEET,
     isFeatured: true,
+    image: mochaccino,
   },
 
   {
@@ -84,6 +96,7 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.SWEET,
     isFeatured: false,
+    image: "chocolate-quente.png",
   },
 
   {
@@ -94,6 +107,7 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.SWEET,
     isFeatured: false,
+    image: "cubano.png",
   },
 
   {
@@ -103,6 +117,7 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.SWEET,
     isFeatured: false,
+    image: "havaiano.png",
   },
 
   {
@@ -112,6 +127,7 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.SWEET,
     isFeatured: false,
+    image: "arabe.png",
   },
 
   {
@@ -121,7 +137,10 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.SWEET,
     isFeatured: true,
+    image: irlandes,
   },
 ]
 
-export { drinks, DrinkCategory, Drinks }
+const featuredDrinks = drinks.filter((drink) => drink.isFeatured)
+
+export { drinks, DrinkCategory, Drinks, featuredDrinks }

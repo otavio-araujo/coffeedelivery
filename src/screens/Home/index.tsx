@@ -2,15 +2,16 @@ import { useEffect } from "react"
 import { StatusBar } from "expo-status-bar"
 import {
   Dimensions,
-  Easing,
   Image,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native"
-import { Canvas, Rect } from "@shopify/react-native-skia"
+import Carousel from "react-native-reanimated-carousel"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
+
+import { Canvas, Rect } from "@shopify/react-native-skia"
 import Animated, {
   FadeInDown,
   useSharedValue,
@@ -21,9 +22,12 @@ import { styles } from "./styles"
 import { THEME } from "@styles/theme"
 import { globalStyles } from "@styles/globals"
 
+import { drinks, featuredDrinks } from "@assets/data/DrinkDataset"
+
 import MapPin from "phosphor-react-native/src/fill/MapPin"
 import ShoppingCart from "phosphor-react-native/src/fill/ShoppingCart"
 import MagnifyingGlass from "phosphor-react-native/src/regular/MagnifyingGlass"
+import { FeaturedDrinkItem } from "@components/FeaturedDrinkItem"
 
 export function HomeScreen() {
   const { top } = useSafeAreaInsets()
@@ -99,6 +103,13 @@ export function HomeScreen() {
           style={styles.coffeeBean}
         />
       </Animated.View>
+
+      {/* Featured Drinks */}
+      <Carousel
+        data={featuredDrinks}
+        width={windowWidth}
+        renderItem={({ item }) => <FeaturedDrinkItem drink={item} />}
+      />
     </View>
   )
 }
