@@ -1,6 +1,4 @@
-const latte = require("@assets/catalogue/latte.png")
-const mochaccino = require("@assets/catalogue/mochaccino.png")
-const irlandes = require("@assets/catalogue/irlandes.png")
+import { ImageSourcePropType } from "react-native"
 
 enum DrinkCategory {
   TRADITIONAL = "tradicional",
@@ -15,7 +13,7 @@ interface Drinks {
   price: number
   category: DrinkCategory
   isFeatured: boolean
-  image: string
+  image: ImageSourcePropType
 }
 
 const drinks: Drinks[] = [
@@ -26,7 +24,7 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.TRADITIONAL,
     isFeatured: false,
-    image: "expresso.png",
+    image: require("@assets/catalogue/expresso.png"),
   },
 
   {
@@ -36,7 +34,7 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.TRADITIONAL,
     isFeatured: false,
-    image: "americano.png",
+    image: require("@assets/catalogue/americano.png"),
   },
 
   {
@@ -46,7 +44,7 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.TRADITIONAL,
     isFeatured: false,
-    image: "expresso-cremoso.png",
+    image: require("@assets/catalogue/expresso-cremoso.png"),
   },
 
   {
@@ -56,7 +54,7 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.TRADITIONAL,
     isFeatured: true,
-    image: latte,
+    image: require("@assets/catalogue/latte.png"),
   },
 
   {
@@ -66,7 +64,7 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.TRADITIONAL,
     isFeatured: false,
-    image: "cafe-gelado.png",
+    image: require("@assets/catalogue/cafe-gelado.png"),
   },
 
   {
@@ -76,7 +74,7 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.SWEET,
     isFeatured: false,
-    image: "capuccino.png",
+    image: require("@assets/catalogue/capuccino.png"),
   },
 
   {
@@ -86,7 +84,7 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.SWEET,
     isFeatured: true,
-    image: mochaccino,
+    image: require("@assets/catalogue/mochaccino.png"),
   },
 
   {
@@ -96,7 +94,7 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.SWEET,
     isFeatured: false,
-    image: "chocolate-quente.png",
+    image: require("@assets/catalogue/chocolate-quente.png"),
   },
 
   {
@@ -107,7 +105,7 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.SWEET,
     isFeatured: false,
-    image: "cubano.png",
+    image: require("@assets/catalogue/cubano.png"),
   },
 
   {
@@ -117,7 +115,7 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.SWEET,
     isFeatured: false,
-    image: "havaiano.png",
+    image: require("@assets/catalogue/havaiano.png"),
   },
 
   {
@@ -127,7 +125,7 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.SWEET,
     isFeatured: false,
-    image: "arabe.png",
+    image: require("@assets/catalogue/arabe.png"),
   },
 
   {
@@ -137,7 +135,7 @@ const drinks: Drinks[] = [
     price: 990,
     category: DrinkCategory.SWEET,
     isFeatured: true,
-    image: irlandes,
+    image: require("@assets/catalogue/irlandes.png"),
   },
 ]
 

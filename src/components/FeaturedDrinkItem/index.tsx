@@ -1,5 +1,5 @@
 import React from "react"
-import { Image, Text, View } from "react-native"
+import { Image, Pressable, Text, TouchableOpacity, View } from "react-native"
 
 import { styles } from "./styles"
 import { Drinks } from "@assets/data/DrinkDataset"
@@ -10,17 +10,11 @@ interface FeaturedDrinkItemProps {
 
 export function FeaturedDrinkItem({ drink }: FeaturedDrinkItemProps) {
   return (
-    <>
+    <Pressable style={styles.touchableContainer}>
+      <Image source={drink.image} style={styles.image} resizeMode="cover" />
       <View style={styles.container}>
-        <View style={styles.dataContainer}>
-          <Image
-            source={require("../../assets/catalogue/americano.png")}
-            style={styles.image}
-            resizeMode="cover"
-          />
-          <Text>{drink.name}</Text>
-        </View>
+        <Text>{drink.name}</Text>
       </View>
-    </>
+    </Pressable>
   )
 }
