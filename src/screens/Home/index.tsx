@@ -14,6 +14,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Canvas, Rect } from "@shopify/react-native-skia"
 import Animated, {
   FadeInDown,
+  FadeInRight,
   useSharedValue,
   withTiming,
 } from "react-native-reanimated"
@@ -35,6 +36,7 @@ export function HomeScreen() {
   const BG_RECTANGLE_HEIGHT = 420
 
   const windowWidth = Dimensions.get("window").width
+  const PAGE_WIDTH = windowWidth / 2
 
   const topRectangleHeight = useSharedValue(40)
 
@@ -105,11 +107,28 @@ export function HomeScreen() {
       </Animated.View>
 
       {/* Featured Drinks */}
-      <Carousel
-        data={featuredDrinks}
-        width={windowWidth}
-        renderItem={({ item }) => <FeaturedDrinkItem drink={item} />}
-      />
+      <Animated.View
+        entering={FadeInRight.delay(500).duration(300)}
+        style={styles.featuredDrinksContainer}
+      >
+        <Carousel
+          data={featuredDrinks}
+          style={{
+            width: windowWidth,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          width={PAGE_WIDTH}
+          renderItem={({ item }) => <FeaturedDrinkItem drink={item} />}
+          loop={false}
+          mode="parallax"
+          modeConfig={{
+            parallaxScrollingScale: 1,
+            parallaxScrollingOffset: 0,
+            parallaxAdjacentItemScale: 0.7,
+          }}
+        />
+      </Animated.View>
     </View>
   )
 }

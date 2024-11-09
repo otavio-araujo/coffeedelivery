@@ -4,13 +4,13 @@ import { StyleSheet } from "react-native"
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 32,
   },
 
   headerContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    paddingHorizontal: 32,
     paddingVertical: 20,
   },
 
@@ -29,9 +29,10 @@ export const styles = StyleSheet.create({
   },
 
   searchContainer: {
-    marginTop: 20,
     gap: 15,
     width: "100%",
+    marginTop: 20,
+    paddingHorizontal: 32,
   },
 
   searchInputContainer: {
@@ -56,4 +57,6 @@ export const styles = StyleSheet.create({
     marginTop: -14,
     alignSelf: "flex-end",
   },
+
+  featuredDrinksContainer: { flex: 1, marginTop: -65 },
 })
