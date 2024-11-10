@@ -28,7 +28,7 @@ import { styles } from "./styles"
 import { THEME } from "@styles/theme"
 import { globalStyles } from "@styles/globals"
 
-import { drinks, featuredDrinks } from "@assets/data/DrinkDataset"
+import { sectionListDrinks, featuredDrinks } from "@assets/data/DrinkDataset"
 
 import MapPin from "phosphor-react-native/src/fill/MapPin"
 import ShoppingCart from "phosphor-react-native/src/fill/ShoppingCart"
@@ -55,6 +55,8 @@ export function HomeScreen() {
       featDrinksScrollX.value = event.contentOffset.x
     },
   })
+
+  console.log(sectionListDrinks)
 
   useEffect(() => {
     topRectangleHeight.value = withTiming(BG_RECTANGLE_HEIGHT, {

@@ -16,6 +16,11 @@ interface Drinks {
   image: ImageSourcePropType
 }
 
+interface sectionDrinks {
+  title: string
+  data: Drinks[]
+}
+
 const drinks: Drinks[] = [
   {
     id: 1,
@@ -141,4 +146,30 @@ const drinks: Drinks[] = [
 
 const featuredDrinks = drinks.filter((drink) => drink.isFeatured)
 
-export { drinks, DrinkCategory, Drinks, featuredDrinks }
+function filterDrinksByCategory(category: DrinkCategory) {
+  return drinks.filter((drink) => drink.category === category)
+}
+
+const sectionListDrinks = [
+  {
+    title: DrinkCategory.TRADITIONAL,
+    data: filterDrinksByCategory(DrinkCategory.TRADITIONAL),
+  },
+  {
+    title: DrinkCategory.SWEET,
+    data: filterDrinksByCategory(DrinkCategory.SWEET),
+  },
+  {
+    title: DrinkCategory.SPECIAL,
+    data: filterDrinksByCategory(DrinkCategory.SPECIAL),
+  },
+]
+
+export {
+  drinks,
+  DrinkCategory,
+  Drinks,
+  featuredDrinks,
+  sectionDrinks,
+  sectionListDrinks,
+}
