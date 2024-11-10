@@ -60,6 +60,7 @@ export const globalStyles = StyleSheet.create({
     fontFamily: THEME.FONTS.ROBOTO_BOLD,
     fontSize: THEME.FONT_SIZES.TAG,
     lineHeight: THEME.LINE_HEIGHTS.TAG,
+    textTransform: "uppercase",
   },
 
   textBUTTON: {

@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { StatusBar } from "expo-status-bar"
 import {
   Dimensions,
@@ -18,6 +18,7 @@ import Animated, {
   Easing,
   FadeInDown,
   FadeInRight,
+  FadeOutDown,
   useAnimatedScrollHandler,
   useSharedValue,
   withTiming,
@@ -33,6 +34,7 @@ import MapPin from "phosphor-react-native/src/fill/MapPin"
 import ShoppingCart from "phosphor-react-native/src/fill/ShoppingCart"
 import MagnifyingGlass from "phosphor-react-native/src/regular/MagnifyingGlass"
 import { FeaturedDrinkItem } from "@components/FeaturedDrinkItem"
+import { FilterButtonPill } from "@components/FilterButtonPill"
 
 export function HomeScreen() {
   const { top } = useSafeAreaInsets()
@@ -41,6 +43,8 @@ export function HomeScreen() {
 
   const windowWidth = Dimensions.get("window").width
   const PAGE_WIDTH = windowWidth / 2
+
+  const [selectedDrinkFilter, setSelectedDrinkFilter] = useState<string>("")
 
   const topRectangleHeight = useSharedValue(40)
 
@@ -145,6 +149,33 @@ export function HomeScreen() {
             showsHorizontalScrollIndicator={false}
             onScroll={featDrinksOnScrollHandler}
           />
+        </Animated.View>
+
+        {/* Drinks */}
+        <Animated.View
+          style={styles.drinksFilterContainer}
+          entering={FadeInDown.delay(1000).duration(300)}
+        >
+          <Text style={[globalStyles.titleMD, styles.drinksFilterTitle]}>
+            Nossos cafés
+          </Text>
+          <View style={styles.drinksFilterPillsContainer}>
+            <FilterButtonPill
+              label="tradicionais"
+              isSelected={selectedDrinkFilter === "tradicionais" ? true : false}
+              onPress={() => setSelectedDrinkFilter("tradicionais")}
+            />
+            <FilterButtonPill
+              label="doces"
+              isSelected={selectedDrinkFilter === "doces" ? true : false}
+              onPress={() => setSelectedDrinkFilter("doces")}
+            />
+            <FilterButtonPill
+              label="especiais"
+              isSelected={selectedDrinkFilter === "especiais" ? true : false}
+              onPress={() => setSelectedDrinkFilter("especiais")}
+            />
+          </View>
         </Animated.View>
       </ScrollView>
     </View>

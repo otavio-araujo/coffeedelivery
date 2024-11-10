@@ -59,4 +59,20 @@ export const styles = StyleSheet.create({
   },
 
   featuredDrinksContainer: { flex: 1, marginTop: -65 },
+
+  drinksFilterContainer: {
+    paddingHorizontal: 32,
+    paddingVertical: 16,
+    gap: 12,
+  },
+
+  drinksFilterTitle: {
+    color: THEME.COLORS.GREY_300,
+    gap: 8,
+  },
+
+  drinksFilterPillsContainer: {
+    flexDirection: "row",
+    gap: 8,
+  },
 })
