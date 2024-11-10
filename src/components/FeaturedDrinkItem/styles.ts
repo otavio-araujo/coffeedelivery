@@ -1,10 +1,13 @@
 import { THEME } from "@styles/theme"
-import { StyleSheet } from "react-native"
+import { Dimensions, StyleSheet } from "react-native"
+
+const windowWidth = Dimensions.get("window").width
 
 export const styles = StyleSheet.create({
   touchableContainer: {
     alignItems: "center",
-    width: 208,
+    justifyContent: "center",
+    width: 375,
     marginTop: 32,
   },
 

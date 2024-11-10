@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { StatusBar } from "expo-status-bar"
 import {
   Dimensions,
+  FlatList,
   Image,
   ScrollView,
   Text,
@@ -14,8 +15,10 @@ import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 import { Canvas, Rect } from "@shopify/react-native-skia"
 import Animated, {
+  Easing,
   FadeInDown,
   FadeInRight,
+  useAnimatedScrollHandler,
   useSharedValue,
   withTiming,
 } from "react-native-reanimated"
@@ -40,6 +43,14 @@ export function HomeScreen() {
   const PAGE_WIDTH = windowWidth / 2
 
   const topRectangleHeight = useSharedValue(40)
+
+  const featDrinksScrollX = useSharedValue(0)
+
+  const featDrinksOnScrollHandler = useAnimatedScrollHandler({
+    onScroll: (event) => {
+      featDrinksScrollX.value = event.contentOffset.x
+    },
+  })
 
   useEffect(() => {
     topRectangleHeight.value = withTiming(BG_RECTANGLE_HEIGHT, {
@@ -86,14 +97,8 @@ export function HomeScreen() {
       </View>
 
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-        <View style={styles.testContainer}>
-          <FeaturedDrinkItem drink={drinks[0]} />
-          <FeaturedDrinkItem drink={drinks[1]} />
-          <FeaturedDrinkItem drink={drinks[2]} />
-        </View>
-
         {/* Search */}
-        {/* <Animated.View
+        <Animated.View
           entering={FadeInDown.delay(400).duration(300)}
           style={styles.searchContainer}
         >
@@ -113,7 +118,34 @@ export function HomeScreen() {
             source={require("@assets/catalogue/coffee-bean.png")}
             style={styles.coffeeBean}
           />
-        </Animated.View> */}
+        </Animated.View>
+
+        {/* Featured Drinks */}
+        <Animated.View
+          style={styles.featuredDrinksContainer}
+          entering={FadeInRight.delay(700).duration(400)}
+        >
+          <Animated.FlatList
+            horizontal
+            pagingEnabled
+            data={featuredDrinks}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item, index }) => (
+              <FeaturedDrinkItem
+                drink={item}
+                index={index}
+                scrollX={featDrinksScrollX}
+              />
+            )}
+            contentContainerStyle={{
+              paddingVertical: 8,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            showsHorizontalScrollIndicator={false}
+            onScroll={featDrinksOnScrollHandler}
+          />
+        </Animated.View>
       </ScrollView>
     </View>
   )

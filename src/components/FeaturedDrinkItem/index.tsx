@@ -1,18 +1,65 @@
-import { Image, Pressable, Text, TouchableOpacity, View } from "react-native"
+import {
+  Dimensions,
+  Image,
+  Pressable,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native"
 
 import { styles } from "./styles"
 
 import { Pill } from "@components/Pill"
 import { Drinks } from "@assets/data/DrinkDataset"
 import { globalStyles } from "@styles/globals"
+import Animated, {
+  interpolate,
+  SharedValue,
+  useAnimatedStyle,
+} from "react-native-reanimated"
+import { Extrapolate } from "@shopify/react-native-skia"
 
 interface FeaturedDrinkItemProps {
   drink: Drinks
+  index: number
+  scrollX: SharedValue<number>
 }
 
-export function FeaturedDrinkItem({ drink }: FeaturedDrinkItemProps) {
+export function FeaturedDrinkItem({
+  drink,
+  scrollX,
+  index,
+}: FeaturedDrinkItemProps) {
+  const { width } = Dimensions.get("screen")
+
+  const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
+
+  const scrollXAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateX: interpolate(
+            scrollX.value,
+            [(index - 1) * width, index * width, (index + 1) * width],
+            [-width * 0.45, 0, width * 0.45],
+            Extrapolate.CLAMP
+          ),
+        },
+        {
+          scale: interpolate(
+            scrollX.value,
+            [(index - 1) * width, index * width, (index + 1) * width],
+            [0.7, 1, 0.7],
+            Extrapolate.CLAMP
+          ),
+        },
+      ],
+    }
+  })
   return (
-    <Pressable style={styles.touchableContainer}>
+    <AnimatedPressable
+      style={[styles.touchableContainer, scrollXAnimatedStyle]}
+    >
       <Image source={drink.image} style={styles.image} resizeMode="cover" />
 
       <View style={styles.container}>
@@ -34,6 +81,6 @@ export function FeaturedDrinkItem({ drink }: FeaturedDrinkItemProps) {
           </Text>
         </View>
       </View>
-    </Pressable>
+    </AnimatedPressable>
   )
 }
