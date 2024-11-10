@@ -75,4 +75,10 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 8,
   },
+
+  sectionListDrinksTitle: {
+    color: THEME.COLORS.GREY_400,
+    textTransform: "capitalize",
+    marginTop: 16,
+  },
 })

@@ -5,6 +5,7 @@ import {
   FlatList,
   Image,
   ScrollView,
+  SectionList,
   Text,
   TextInput,
   TouchableOpacity,
@@ -55,8 +56,6 @@ export function HomeScreen() {
       featDrinksScrollX.value = event.contentOffset.x
     },
   })
-
-  console.log(sectionListDrinks)
 
   useEffect(() => {
     topRectangleHeight.value = withTiming(BG_RECTANGLE_HEIGHT, {
@@ -178,6 +177,21 @@ export function HomeScreen() {
               onPress={() => setSelectedDrinkFilter("especiais")}
             />
           </View>
+
+          <SectionList
+            sections={sectionListDrinks}
+            scrollEnabled={false}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(item, index) => item.id.toString()}
+            renderItem={({ item }) => <Text>{item.name}</Text>}
+            renderSectionHeader={({ section: { title } }) => (
+              <Text
+                style={[globalStyles.titleSM, styles.sectionListDrinksTitle]}
+              >
+                {title}
+              </Text>
+            )}
+          />
         </Animated.View>
       </ScrollView>
     </View>
