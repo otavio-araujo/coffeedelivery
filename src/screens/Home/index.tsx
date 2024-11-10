@@ -34,9 +34,10 @@ import { sectionListDrinks, featuredDrinks } from "@assets/data/DrinkDataset"
 import MapPin from "phosphor-react-native/src/fill/MapPin"
 import ShoppingCart from "phosphor-react-native/src/fill/ShoppingCart"
 import MagnifyingGlass from "phosphor-react-native/src/regular/MagnifyingGlass"
-import { FeaturedDrinkItem } from "@components/FeaturedDrinkItem"
-import { FilterButtonPill } from "@components/FilterButtonPill"
+
 import { DrinkItem } from "@components/DrinkItem"
+import { FilterButtonPill } from "@components/FilterButtonPill"
+import { FeaturedDrinkItem } from "@components/FeaturedDrinkItem"
 
 export function HomeScreen() {
   const { top } = useSafeAreaInsets()
@@ -179,14 +180,17 @@ export function HomeScreen() {
             />
           </View>
 
-          <DrinkItem />
-
           <SectionList
             sections={sectionListDrinks}
             scrollEnabled={false}
             showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => item.id.toString()}
-            renderItem={({ item }) => <Text>{item.name}</Text>}
+            renderItem={({ item }) => <DrinkItem drink={item} />}
+            contentContainerStyle={{
+              padding: 0,
+              gap: 16,
+              justifyContent: "center",
+            }}
             renderSectionHeader={({ section: { title } }) => (
               <Text
                 style={[globalStyles.titleSM, styles.sectionListDrinksTitle]}
