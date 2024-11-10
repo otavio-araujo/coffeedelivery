@@ -36,6 +36,7 @@ import ShoppingCart from "phosphor-react-native/src/fill/ShoppingCart"
 import MagnifyingGlass from "phosphor-react-native/src/regular/MagnifyingGlass"
 import { FeaturedDrinkItem } from "@components/FeaturedDrinkItem"
 import { FilterButtonPill } from "@components/FilterButtonPill"
+import { DrinkItem } from "@components/DrinkItem"
 
 export function HomeScreen() {
   const { top } = useSafeAreaInsets()
@@ -177,6 +178,8 @@ export function HomeScreen() {
               onPress={() => setSelectedDrinkFilter("especiais")}
             />
           </View>
+
+          <DrinkItem />
 
           <SectionList
             sections={sectionListDrinks}
