@@ -36,6 +36,8 @@ import {
   featuredDrinks,
   Drinks,
   sectionDrinks,
+  DrinkCategory,
+  filterCategories,
 } from "@assets/data/DrinkDataset"
 
 import MapPin from "phosphor-react-native/src/fill/MapPin"
@@ -54,7 +56,7 @@ export function HomeScreen() {
   const windowWidth = Dimensions.get("window").width
   const PAGE_WIDTH = windowWidth / 2
 
-  const [selectedDrinkFilter, setSelectedDrinkFilter] = useState<string>("")
+  const [selectedDrinkFilter, setSelectedDrinkFilter] = useState("")
 
   const topRectangleHeight = useSharedValue(40)
 
@@ -65,7 +67,8 @@ export function HomeScreen() {
       SectionList
     )
 
-  const sectionListRef = useRef<SectionList<Drinks, sectionDrinks>>(null)
+  // const sectionListRef = useRef<SectionList<Drinks, sectionDrinks>>(null)
+  const sectionListRef = useRef<SectionList>(null)
 
   const featDrinksOnScrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -74,13 +77,15 @@ export function HomeScreen() {
   })
 
   function handleSelectedDrinkFilter(category: string, sectionIndex: number) {
-    // setSelectedDrinkFilter(category)
+    setSelectedDrinkFilter(category)
 
-    sectionListRef.current?.scrollToLocation({
-      sectionIndex,
-      animated: true,
-      itemIndex: 1,
-    })
+    if (sectionListRef.current) {
+      sectionListRef.current?.scrollToLocation({
+        sectionIndex,
+        itemIndex: 1,
+        animated: true,
+      })
+    }
   }
 
   useEffect(() => {
@@ -110,14 +115,18 @@ export function HomeScreen() {
         </TouchableOpacity>
       </View>
 
-      <AnimatedSectionList
+      <SectionList
         ref={sectionListRef}
         sections={sectionListDrinks}
         showsVerticalScrollIndicator={false}
         scrollEnabled
         keyExtractor={(item, index) => item.id.toString()}
         stickySectionHeadersEnabled
-        renderItem={({ item }) => <DrinkItem drink={item} />}
+        renderItem={({ item }) => (
+          <Animated.View entering={FadeInDown.delay(1000).duration(300)}>
+            <DrinkItem drink={item} />
+          </Animated.View>
+        )}
         contentContainerStyle={{
           gap: 16,
           justifyContent: "center",
@@ -199,25 +208,23 @@ export function HomeScreen() {
               <Text style={[globalStyles.titleMD, styles.drinksFilterTitle]}>
                 Nossos cafés
               </Text>
+
               <View style={styles.drinksFilterPillsContainer}>
-                <FilterButtonPill
-                  label="tradicionais"
-                  isSelected={
-                    selectedDrinkFilter === "tradicionais" ? true : false
-                  }
-                  onPress={() => handleSelectedDrinkFilter("tradicionais", 0)}
-                />
-                <FilterButtonPill
-                  label="doces"
-                  isSelected={selectedDrinkFilter === "doces" ? true : false}
-                  onPress={() => handleSelectedDrinkFilter("doces", 1)}
-                />
-                <FilterButtonPill
-                  label="especiais"
-                  isSelected={
-                    selectedDrinkFilter === "especiais" ? true : false
-                  }
-                  onPress={() => handleSelectedDrinkFilter("especiais", 2)}
+                <FlatList
+                  horizontal
+                  data={filterCategories}
+                  contentContainerStyle={{ gap: 8 }}
+                  renderItem={({ item, index }) => (
+                    <FilterButtonPill
+                      label={item.title}
+                      isSelected={
+                        selectedDrinkFilter === item.title ? true : false
+                      }
+                      onPress={() =>
+                        handleSelectedDrinkFilter(item.title, index)
+                      }
+                    />
+                  )}
                 />
               </View>
             </Animated.View>

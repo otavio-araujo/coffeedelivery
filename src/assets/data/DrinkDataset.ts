@@ -165,6 +165,12 @@ const sectionListDrinks = [
   },
 ]
 
+const filterCategories = [
+  { title: "tradicionais" },
+  { title: "doces" },
+  { title: "especiais" },
+]
+
 export {
   drinks,
   DrinkCategory,
@@ -172,4 +178,5 @@ export {
   featuredDrinks,
   sectionDrinks,
   sectionListDrinks,
+  filterCategories,
 }

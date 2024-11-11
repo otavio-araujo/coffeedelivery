@@ -28,10 +28,7 @@ export function DrinkItem({ drink }: FeaturedDrinkItemProps) {
   const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
   return (
-    <AnimatedPressable
-      style={styles.touchableContainer}
-      entering={FadeInDown.delay(1000).duration(300)}
-    >
+    <AnimatedPressable style={styles.touchableContainer}>
       <Image source={drink.image} style={styles.image} resizeMode="cover" />
 
       <View style={styles.container}>
