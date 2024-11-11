@@ -152,15 +152,15 @@ function filterDrinksByCategory(category: DrinkCategory) {
 
 const sectionListDrinks = [
   {
-    title: DrinkCategory.TRADITIONAL,
+    title: "tradicionais",
     data: filterDrinksByCategory(DrinkCategory.TRADITIONAL),
   },
   {
-    title: DrinkCategory.SWEET,
+    title: "doces",
     data: filterDrinksByCategory(DrinkCategory.SWEET),
   },
   {
-    title: DrinkCategory.SPECIAL,
+    title: "especiais",
     data: filterDrinksByCategory(DrinkCategory.SPECIAL),
   },
 ]
