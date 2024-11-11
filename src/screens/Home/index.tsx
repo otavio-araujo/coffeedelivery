@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   SectionList,
+  SectionListProps,
   Text,
   TextInput,
   TouchableOpacity,
@@ -30,7 +31,12 @@ import { styles } from "./styles"
 import { THEME } from "@styles/theme"
 import { globalStyles } from "@styles/globals"
 
-import { sectionListDrinks, featuredDrinks } from "@assets/data/DrinkDataset"
+import {
+  sectionListDrinks,
+  featuredDrinks,
+  Drinks,
+  sectionDrinks,
+} from "@assets/data/DrinkDataset"
 
 import MapPin from "phosphor-react-native/src/fill/MapPin"
 import ShoppingCart from "phosphor-react-native/src/fill/ShoppingCart"
@@ -43,18 +49,23 @@ import { FeaturedDrinkItem } from "@components/FeaturedDrinkItem"
 export function HomeScreen() {
   const { top } = useSafeAreaInsets()
 
-  const BG_RECTANGLE_HEIGHT = 420
+  const BG_RECTANGLE_HEIGHT = 344
 
   const windowWidth = Dimensions.get("window").width
   const PAGE_WIDTH = windowWidth / 2
 
-  const selectedDrinkFilter = useSharedValue<string>("")
+  const [selectedDrinkFilter, setSelectedDrinkFilter] = useState<string>("")
 
   const topRectangleHeight = useSharedValue(40)
 
   const featDrinksScrollX = useSharedValue(0)
 
-  const sectionListRef = useRef<SectionList>(null)
+  const AnimatedSectionList =
+    Animated.createAnimatedComponent<SectionListProps<Drinks, sectionDrinks>>(
+      SectionList
+    )
+
+  const sectionListRef = useRef<SectionList<Drinks, sectionDrinks>>(null)
 
   const featDrinksOnScrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -63,14 +74,12 @@ export function HomeScreen() {
   })
 
   function handleSelectedDrinkFilter(category: string, sectionIndex: number) {
-    selectedDrinkFilter.value = category
-
-    console.log(category)
+    // setSelectedDrinkFilter(category)
 
     sectionListRef.current?.scrollToLocation({
-      animated: true,
-      itemIndex: 0,
       sectionIndex,
+      animated: true,
+      itemIndex: 1,
     })
   }
 
@@ -87,23 +96,6 @@ export function HomeScreen() {
         backgroundColor={THEME.COLORS.GREY_100}
         style="light"
       />
-      <Canvas
-        style={{
-          height: BG_RECTANGLE_HEIGHT,
-          width: windowWidth,
-          position: "absolute",
-          top: 0,
-          left: 0,
-        }}
-      >
-        <Rect
-          x={0}
-          y={0}
-          width={windowWidth}
-          height={topRectangleHeight}
-          color={THEME.COLORS.GREY_100}
-        />
-      </Canvas>
 
       {/* Header */}
       <View style={styles.headerContainer}>
@@ -118,18 +110,37 @@ export function HomeScreen() {
         </TouchableOpacity>
       </View>
 
-      <SectionList
+      <AnimatedSectionList
+        ref={sectionListRef}
         sections={sectionListDrinks}
         showsVerticalScrollIndicator={false}
         scrollEnabled
         keyExtractor={(item, index) => item.id.toString()}
+        stickySectionHeadersEnabled
         renderItem={({ item }) => <DrinkItem drink={item} />}
         contentContainerStyle={{
           gap: 16,
           justifyContent: "center",
         }}
-        ListHeaderComponent={() => (
+        ListHeaderComponent={(index) => (
           <>
+            <Canvas
+              style={{
+                height: BG_RECTANGLE_HEIGHT,
+                width: windowWidth,
+                position: "absolute",
+                top: 0,
+                left: 0,
+              }}
+            >
+              <Rect
+                x={0}
+                y={0}
+                width={windowWidth}
+                height={topRectangleHeight}
+                color={THEME.COLORS.GREY_100}
+              />
+            </Canvas>
             {/* Search */}
             <Animated.View
               entering={FadeInDown.delay(400).duration(300)}
@@ -192,21 +203,19 @@ export function HomeScreen() {
                 <FilterButtonPill
                   label="tradicionais"
                   isSelected={
-                    selectedDrinkFilter.value === "tradicionais" ? true : false
+                    selectedDrinkFilter === "tradicionais" ? true : false
                   }
                   onPress={() => handleSelectedDrinkFilter("tradicionais", 0)}
                 />
                 <FilterButtonPill
                   label="doces"
-                  isSelected={
-                    selectedDrinkFilter.value === "doces" ? true : false
-                  }
+                  isSelected={selectedDrinkFilter === "doces" ? true : false}
                   onPress={() => handleSelectedDrinkFilter("doces", 1)}
                 />
                 <FilterButtonPill
                   label="especiais"
                   isSelected={
-                    selectedDrinkFilter.value === "especiais" ? true : false
+                    selectedDrinkFilter === "especiais" ? true : false
                   }
                   onPress={() => handleSelectedDrinkFilter("especiais", 2)}
                 />

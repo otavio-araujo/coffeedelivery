@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 32,
     paddingVertical: 20,
+    backgroundColor: THEME.COLORS.GREY_100,
   },
 
   locationContainer: {
@@ -79,6 +80,9 @@ export const styles = StyleSheet.create({
   sectionListDrinksTitle: {
     color: THEME.COLORS.GREY_400,
     textTransform: "capitalize",
-    marginTop: 16,
+    paddingVertical: 16,
+    backgroundColor: THEME.COLORS.GREY_800,
+    borderBottomWidth: 1,
+    borderBottomColor: THEME.COLORS.GREY_700,
   },
 })
