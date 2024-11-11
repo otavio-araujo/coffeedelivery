@@ -13,6 +13,7 @@ import { Pill } from "@components/Pill"
 import { Drinks } from "@assets/data/DrinkDataset"
 import { globalStyles } from "@styles/globals"
 import Animated, {
+  FadeInDown,
   interpolate,
   SharedValue,
   useAnimatedStyle,
@@ -24,8 +25,13 @@ interface FeaturedDrinkItemProps {
 }
 
 export function DrinkItem({ drink }: FeaturedDrinkItemProps) {
+  const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
+
   return (
-    <Pressable style={styles.touchableContainer}>
+    <AnimatedPressable
+      style={styles.touchableContainer}
+      entering={FadeInDown.delay(1000).duration(300)}
+    >
       <Image source={drink.image} style={styles.image} resizeMode="cover" />
 
       <View style={styles.container}>
@@ -45,6 +51,6 @@ export function DrinkItem({ drink }: FeaturedDrinkItemProps) {
           </Text>
         </View>
       </View>
-    </Pressable>
+    </AnimatedPressable>
   )
 }

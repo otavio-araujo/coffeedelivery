@@ -6,9 +6,10 @@ const windowWidth = Dimensions.get("window").width
 export const styles = StyleSheet.create({
   touchableContainer: {
     alignItems: "center",
-    width: 375,
+    width: windowWidth,
     marginTop: 32,
     flexDirection: "row",
+    marginHorizontal: 32,
   },
 
   container: {
