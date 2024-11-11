@@ -106,6 +106,7 @@ export function HomeScreen() {
         paddingVertical: 16,
         borderBottomWidth: 1,
         borderBottomColor: THEME.COLORS.GREY_700,
+        backgroundColor: THEME.COLORS.GREY_800,
       }
     } else {
       return {
@@ -215,6 +216,8 @@ export function HomeScreen() {
         contentContainerStyle={{
           gap: 16,
           justifyContent: "center",
+          paddingBottom: 90,
+          backgroundColor: THEME.COLORS.GREY_800,
         }}
         ListHeaderComponent={(index) => (
           <>
@@ -286,7 +289,7 @@ export function HomeScreen() {
             </Animated.View>
 
             {/* Filter Drinks */}
-            <Animated.View style={hideSectionListFilterDrinksAnimatedStyle}>
+            <Animated.View style={[hideSectionListFilterDrinksAnimatedStyle]}>
               <Animated.View
                 style={[styles.drinksFilterContainer]}
                 entering={FadeInDown.delay(1000).duration(300)}
@@ -318,16 +321,25 @@ export function HomeScreen() {
           </>
         )}
         renderSectionHeader={({ section: { title } }) => (
-          <Animated.Text
+          <Animated.View
             entering={FadeInDown.delay(1000).duration(300)}
-            style={[
-              globalStyles.titleSM,
-              styles.sectionListDrinksTitle,
-              { paddingHorizontal: 32 },
-            ]}
+            style={{
+              borderBottomWidth: 1,
+              borderBottomColor: THEME.COLORS.GREY_700,
+            }}
           >
-            {title}
-          </Animated.Text>
+            <Animated.Text
+              style={[
+                globalStyles.titleSM,
+                styles.sectionListDrinksTitle,
+                {
+                  paddingHorizontal: 32,
+                },
+              ]}
+            >
+              {title}
+            </Animated.Text>
+          </Animated.View>
         )}
       />
     </View>

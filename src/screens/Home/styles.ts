@@ -4,6 +4,7 @@ import { StyleSheet } from "react-native"
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: THEME.COLORS.GREY_100,
   },
 
   headerContainer: {
@@ -59,12 +60,17 @@ export const styles = StyleSheet.create({
     alignSelf: "flex-end",
   },
 
-  featuredDrinksContainer: { flex: 1, marginTop: -65 },
+  featuredDrinksContainer: { flex: 1, marginTop: -65, paddingBottom: 16 },
 
   drinksFilterContainer: {
     paddingHorizontal: 32,
     paddingVertical: 16,
     gap: 12,
+    backgroundColor: THEME.COLORS.GREY_800,
+    borderBottomWidth: 1,
+    borderBottomColor: THEME.COLORS.GREY_700,
+    borderTopWidth: 1,
+    borderTopColor: THEME.COLORS.GREY_700,
   },
 
   drinksFilterTitle: {
@@ -82,7 +88,5 @@ export const styles = StyleSheet.create({
     textTransform: "capitalize",
     paddingVertical: 16,
     backgroundColor: THEME.COLORS.GREY_800,
-    borderBottomWidth: 1,
-    borderBottomColor: THEME.COLORS.GREY_700,
   },
 })
