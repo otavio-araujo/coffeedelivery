@@ -16,6 +16,7 @@ import { globalStyles } from "@styles/globals"
 import { Drinks, getDrinkById } from "@assets/data/DrinkDataset"
 import { useEffect, useState } from "react"
 import { ProductSizeButton } from "@components/ProductSizeButton"
+import { AddToCart } from "@components/AddToCart"
 
 type RouteParamsProps = {
   productID: number
@@ -33,6 +34,8 @@ export function ProductScreen() {
   const [productSize, setProductSize] = useState<
     "114ml" | "140ml" | "227ml" | null
   >(null)
+
+  const [productQuantity, setProductQuantity] = useState(1)
 
   useEffect(() => {
     setDrink(getDrinkById(productID))
@@ -84,6 +87,7 @@ export function ProductScreen() {
 
       {/* Product Actions */}
       <View style={styles.productActionsContainer}>
+        {/* Product Sizes */}
         <Text
           style={[
             globalStyles.textSM,
@@ -113,6 +117,15 @@ export function ProductScreen() {
             isSelected={productSize === "227ml"}
           />
         </View>
+
+        {/* Add to Cart */}
+        <AddToCart
+          quantity={productQuantity}
+          handleRemove={() =>
+            setProductQuantity((state) => Math.max(state - 1, 1))
+          }
+          handleAdd={() => setProductQuantity((state) => state + 1)}
+        />
       </View>
     </View>
   )

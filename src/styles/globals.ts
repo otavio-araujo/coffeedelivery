@@ -85,6 +85,10 @@ export const globalStyles = StyleSheet.create({
     color: THEME.COLORS.GREY_300,
   },
 
+  textGREY_100: {
+    color: THEME.COLORS.GREY_100,
+  },
+
   textRED_DARK: {
     color: THEME.COLORS.RED_DARK,
   },

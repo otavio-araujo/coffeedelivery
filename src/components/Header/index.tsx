@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from "react-native"
 import { styles } from "./styles"
 import { THEME } from "@styles/theme"
 
-import ArrowLeft from "phosphor-react-native/src/regular/ArrowLeft"
+import ArrowLeft from "phosphor-react-native/src/bold/ArrowLeft"
 import ShoppingCart from "phosphor-react-native/src/fill/ShoppingCart"
 
 type HeaderProps = {
