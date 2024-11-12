@@ -19,8 +19,8 @@ export const THEME = {
     GREY_800: "#F3F2F2",
     GREY_900: "#FAFAFA",
 
-    RED: "#C44117",
-    RED_DARK: "#E8BAAB",
+    RED: "#E8BAAB",
+    RED_DARK: "#C44117",
     RED_LIGHT: "#F2DFD8",
   },
 

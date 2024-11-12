@@ -15,6 +15,7 @@ import { Pill } from "@components/Pill"
 import { globalStyles } from "@styles/globals"
 import { Drinks, getDrinkById } from "@assets/data/DrinkDataset"
 import { useEffect, useState } from "react"
+import { ProductSizeButton } from "@components/ProductSizeButton"
 
 type RouteParamsProps = {
   productID: number
@@ -28,6 +29,10 @@ export function ProductScreen() {
   const { top } = useSafeAreaInsets()
 
   const [drink, setDrink] = useState<Drinks | undefined>(undefined)
+
+  const [productSize, setProductSize] = useState<
+    "114ml" | "140ml" | "227ml" | null
+  >(null)
 
   useEffect(() => {
     setDrink(getDrinkById(productID))
@@ -79,9 +84,35 @@ export function ProductScreen() {
 
       {/* Product Actions */}
       <View style={styles.productActionsContainer}>
-        <Text style={[globalStyles.textSM, globalStyles.textGREY_400]}>
+        <Text
+          style={[
+            globalStyles.textSM,
+            globalStyles.textGREY_400,
+            productSize === null && globalStyles.textRED_DARK,
+          ]}
+        >
           Selecione o tamanho:
         </Text>
+        <View style={styles.productSizesContainer}>
+          <ProductSizeButton
+            onPress={() => setProductSize("114ml")}
+            label="114ml"
+            hasError={productSize === null}
+            isSelected={productSize === "114ml"}
+          />
+          <ProductSizeButton
+            onPress={() => setProductSize("140ml")}
+            label="140ml"
+            hasError={productSize === null}
+            isSelected={productSize === "140ml"}
+          />
+          <ProductSizeButton
+            onPress={() => setProductSize("227ml")}
+            label="227ml"
+            hasError={productSize === null}
+            isSelected={productSize === "227ml"}
+          />
+        </View>
       </View>
     </View>
   )
