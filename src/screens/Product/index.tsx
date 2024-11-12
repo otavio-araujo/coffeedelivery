@@ -121,10 +121,14 @@ export function ProductScreen() {
         {/* Add to Cart */}
         <AddToCart
           quantity={productQuantity}
+          disabled={productSize === null}
           handleRemove={() =>
             setProductQuantity((state) => Math.max(state - 1, 1))
           }
           handleAdd={() => setProductQuantity((state) => state + 1)}
+          handleAddToCart={() => {
+            console.log("Add to cart")
+          }}
         />
       </View>
     </View>
