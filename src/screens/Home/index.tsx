@@ -43,11 +43,16 @@ import MapPin from "phosphor-react-native/src/fill/MapPin"
 import ShoppingCart from "phosphor-react-native/src/fill/ShoppingCart"
 import MagnifyingGlass from "phosphor-react-native/src/regular/MagnifyingGlass"
 
+import { AppRouteProps } from "@routes/app.routes"
+
 import { DrinkItem } from "@components/DrinkItem"
 import { FilterButtonPill } from "@components/FilterButtonPill"
 import { FeaturedDrinkItem } from "@components/FeaturedDrinkItem"
+import { NavigationProp, useNavigation } from "@react-navigation/native"
 
 export function HomeScreen() {
+  const navigation: NavigationProp<AppRouteProps> = useNavigation()
+
   const { top } = useSafeAreaInsets()
 
   const BG_RECTANGLE_HEIGHT = 344
@@ -140,6 +145,10 @@ export function HomeScreen() {
 
   function onScrollHandler(event: any) {
     scrollY.value = event.nativeEvent.contentOffset.y
+  }
+
+  function handleGoToProduct(productID: number) {
+    navigation.navigate("ProductScreen", { productID })
   }
 
   useEffect(() => {
@@ -273,6 +282,7 @@ export function HomeScreen() {
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item, index }) => (
                   <FeaturedDrinkItem
+                    onPress={() => handleGoToProduct(item.id)}
                     drink={item}
                     index={index}
                     scrollX={featDrinksScrollX}

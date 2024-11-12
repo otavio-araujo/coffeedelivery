@@ -18,8 +18,11 @@ import Animated, {
   useAnimatedStyle,
 } from "react-native-reanimated"
 import { Extrapolate } from "@shopify/react-native-skia"
+import { ComponentProps } from "react"
 
-interface FeaturedDrinkItemProps {
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
+
+type FeaturedDrinkItemProps = ComponentProps<typeof Pressable> & {
   drink: Drinks
   index: number
   scrollX: SharedValue<number>
@@ -29,10 +32,9 @@ export function FeaturedDrinkItem({
   drink,
   scrollX,
   index,
+  ...rest
 }: FeaturedDrinkItemProps) {
   const { width } = Dimensions.get("screen")
-
-  const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
   const scrollXAnimatedStyle = useAnimatedStyle(() => {
     return {
@@ -59,6 +61,7 @@ export function FeaturedDrinkItem({
   return (
     <AnimatedPressable
       style={[styles.touchableContainer, scrollXAnimatedStyle]}
+      {...rest}
     >
       <Image source={drink.image} style={styles.image} resizeMode="cover" />
 

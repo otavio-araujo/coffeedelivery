@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { StatusBar } from "expo-status-bar"
 import { View, Dimensions } from "react-native"
-import { useNavigation } from "@react-navigation/native"
+import { NavigationProp, useNavigation } from "@react-navigation/native"
 
 import { Canvas, Circle } from "@shopify/react-native-skia"
 
@@ -14,9 +14,10 @@ import Animated, {
 } from "react-native-reanimated"
 
 import { THEME } from "@styles/theme"
+import { AppRouteProps } from "@routes/app.routes"
 
 export function SplashScreen() {
-  const navigation = useNavigation()
+  const navigation: NavigationProp<AppRouteProps> = useNavigation()
 
   const windowHeight = Dimensions.get("window").height
   const windowWidth = Dimensions.get("window").width
@@ -43,7 +44,7 @@ export function SplashScreen() {
 
   function goToHome() {
     setTimeout(() => {
-      navigation.navigate("home" as never)
+      navigation.navigate("HomeScreen")
     }, 700)
   }
 
