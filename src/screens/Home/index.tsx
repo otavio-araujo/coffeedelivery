@@ -46,9 +46,12 @@ import { DrinkItem } from "@components/DrinkItem"
 import { FilterButtonPill } from "@components/FilterButtonPill"
 import { FeaturedDrinkItem } from "@components/FeaturedDrinkItem"
 import { NavigationProp, useNavigation } from "@react-navigation/native"
+import { useCart } from "../../hooks/useCart"
 
 export function HomeScreen() {
   const navigation: NavigationProp<AppRouteProps> = useNavigation()
+
+  const { cart } = useCart()
 
   const { top } = useSafeAreaInsets()
 

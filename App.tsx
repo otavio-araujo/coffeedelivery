@@ -9,6 +9,7 @@ import { Routes } from "@routes/index"
 
 import { THEME } from "@styles/theme"
 import LoadingIndicator from "@components/LoadingIndicator"
+import { CartContextProvider } from "@contexts/cartContext"
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -28,7 +29,9 @@ export default function App() {
         backgroundColor={THEME.COLORS.PURPLE_DARK}
         style="light"
       />
-      <Routes />
+      <CartContextProvider>
+        <Routes />
+      </CartContextProvider>
     </>
   )
 }
