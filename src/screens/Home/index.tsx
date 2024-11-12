@@ -5,9 +5,7 @@ import {
   Dimensions,
   FlatList,
   Image,
-  ScrollView,
   SectionList,
-  SectionListProps,
   Text,
   TextInput,
   TouchableOpacity,
@@ -17,7 +15,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 import { Canvas, Rect } from "@shopify/react-native-skia"
 import Animated, {
-  Extrapolate,
   Extrapolation,
   FadeInDown,
   FadeInRight,

@@ -171,6 +171,10 @@ const filterCategories = [
   { title: "especiais" },
 ]
 
+function getDrinkById(id: number): Drinks | undefined {
+  return drinks.find((drink) => drink.id === id)
+}
+
 export {
   drinks,
   DrinkCategory,
@@ -179,4 +183,5 @@ export {
   sectionDrinks,
   sectionListDrinks,
   filterCategories,
+  getDrinkById,
 }
