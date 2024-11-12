@@ -22,13 +22,17 @@ import { Extrapolate } from "@shopify/react-native-skia"
 
 interface FeaturedDrinkItemProps {
   drink: Drinks
+  handleOnPress: () => void
 }
 
-export function DrinkItem({ drink }: FeaturedDrinkItemProps) {
+export function DrinkItem({ drink, handleOnPress }: FeaturedDrinkItemProps) {
   const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
   return (
-    <AnimatedPressable style={styles.touchableContainer}>
+    <AnimatedPressable
+      style={styles.touchableContainer}
+      onPress={handleOnPress}
+    >
       <Image source={drink.image} style={styles.image} resizeMode="cover" />
 
       <View style={styles.container}>

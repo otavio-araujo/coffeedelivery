@@ -214,11 +214,6 @@ export function HomeScreen() {
         scrollEventThrottle={16}
         keyExtractor={(item, index) => item.id.toString()}
         stickySectionHeadersEnabled
-        renderItem={({ item }) => (
-          <Animated.View entering={FadeInDown.delay(1000).duration(300)}>
-            <DrinkItem drink={item} />
-          </Animated.View>
-        )}
         contentContainerStyle={{
           gap: 16,
           justifyContent: "center",
@@ -346,6 +341,14 @@ export function HomeScreen() {
             >
               {title}
             </Animated.Text>
+          </Animated.View>
+        )}
+        renderItem={({ item }) => (
+          <Animated.View entering={FadeInDown.delay(1000).duration(300)}>
+            <DrinkItem
+              drink={item}
+              handleOnPress={() => handleGoToProduct(item.id)}
+            />
           </Animated.View>
         )}
       />
