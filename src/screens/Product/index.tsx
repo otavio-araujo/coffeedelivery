@@ -17,6 +17,8 @@ import { Drinks, getDrinkById } from "@assets/data/DrinkDataset"
 import { useEffect, useState } from "react"
 import { ProductSizeButton } from "@components/ProductSizeButton"
 import { AddToCart } from "@components/AddToCart"
+import { useCart } from "../../hooks/useCart"
+import { CartDTO } from "@dtos/CartDTO"
 
 type RouteParamsProps = {
   productID: number
@@ -27,9 +29,11 @@ export function ProductScreen() {
 
   const navigation: NavigationProp<AppRouteProps> = useNavigation()
 
+  const { addProduct, removeProduct, cart } = useCart()
+
   const { top } = useSafeAreaInsets()
 
-  const [drink, setDrink] = useState<Drinks | undefined>(undefined)
+  const [drink, setDrink] = useState<Drinks>()
 
   const [productSize, setProductSize] = useState<
     "114ml" | "140ml" | "227ml" | null
@@ -37,8 +41,26 @@ export function ProductScreen() {
 
   const [productQuantity, setProductQuantity] = useState(1)
 
+  async function handleAddToCart() {
+    if (drink === undefined || productSize === null || productQuantity === 0) {
+      return
+    }
+
+    const product: CartDTO = {
+      drink,
+      quantity: productQuantity,
+      size: productSize,
+    }
+    await addProduct(product)
+  }
+
+  async function remove() {
+    await removeProduct()
+  }
+
   useEffect(() => {
     setDrink(getDrinkById(productID))
+    console.log(cart)
   })
 
   return (
@@ -126,9 +148,7 @@ export function ProductScreen() {
             setProductQuantity((state) => Math.max(state - 1, 1))
           }
           handleAdd={() => setProductQuantity((state) => state + 1)}
-          handleAddToCart={() => {
-            console.log("Add to cart")
-          }}
+          handleAddToCart={handleAddToCart}
         />
       </View>
     </View>

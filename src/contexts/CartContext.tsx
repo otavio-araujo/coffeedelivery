@@ -1,16 +1,12 @@
 import { Drinks } from "@assets/data/DrinkDataset"
-import { createContext, ReactNode, useState } from "react"
-
-export type Product = {
-  drink: Drinks
-  quantity: number
-  size: "114ml" | "140ml" | "227ml"
-}
+import { createContext, ReactNode, useEffect, useState } from "react"
+import { CartDTO } from "@dtos/CartDTO"
+import { saveCart, loadCart, removeAll } from "@storage/storageCart"
 
 export type CartContextDataProps = {
-  cart: Product[]
-  addProduct: (product: Product) => void
-  removeProduct: (product: Product) => void
+  cart: CartDTO[]
+  addProduct: (product: CartDTO) => Promise<void>
+  removeProduct: () => Promise<void>
 }
 
 type CartContextProviderProps = {
@@ -22,15 +18,38 @@ export const CartContext = createContext<CartContextDataProps>(
 )
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [cart, setCart] = useState<Product[]>([])
+  const [cart, setCart] = useState<CartDTO[]>([])
 
-  function addProduct(product: Product) {
-    setCart([...cart, product])
+  async function addProduct(product: CartDTO) {
+    let currentCart = await loadCart()
+
+    const productIndex = currentCart.findIndex(
+      (item) => item.drink.id === product.drink.id && item.size === product.size
+    )
+
+    if (productIndex !== -1) {
+      currentCart[productIndex].quantity += product.quantity
+    } else {
+      currentCart.push(product)
+    }
+
+    await saveCart(currentCart)
+    await loadCartData()
   }
 
-  function removeProduct(product: Product) {
-    setCart(cart.filter((item) => item.drink.id !== product.drink.id))
+  async function removeProduct() {
+    await removeAll()
   }
+
+  async function loadCartData() {
+    const storedCart = await loadCart()
+
+    setCart(storedCart)
+  }
+
+  useEffect(() => {
+    loadCartData()
+  }, [])
 
   return (
     <CartContext.Provider value={{ cart, addProduct, removeProduct }}>

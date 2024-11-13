@@ -9,7 +9,7 @@ import { Routes } from "@routes/index"
 
 import { THEME } from "@styles/theme"
 import LoadingIndicator from "@components/LoadingIndicator"
-import { CartContextProvider } from "@contexts/cartContext"
+import { CartContextProvider } from "./src/contexts/CartContext"
 
 export default function App() {
   const [fontsLoaded] = useFonts({

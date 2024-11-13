@@ -3,6 +3,8 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
+      "@dtos/*": ["./src/dtos/*"],
+      "@storage/*": ["./src/storage/*"],
       "@utils/*": ["./src/utils/*"],
       "@types/*": ["./src/@types/*"],
       "@assets/*": ["./src/assets/*"],

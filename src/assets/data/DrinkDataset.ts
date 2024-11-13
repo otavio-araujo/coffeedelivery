@@ -11,7 +11,7 @@ interface Drinks {
   name: string
   description: string
   price: number
-  category: DrinkCategory
+  category: "tradicional" | "doce" | "especial"
   isFeatured: boolean
   image: ImageSourcePropType
 }
@@ -27,7 +27,7 @@ const drinks: Drinks[] = [
     name: "Expresso Tradicional",
     description: "O tradicional café feito com água quente e grãos moídos",
     price: 990,
-    category: DrinkCategory.TRADITIONAL,
+    category: "tradicional",
     isFeatured: false,
     image: require("@assets/catalogue/expresso.png"),
   },
@@ -37,7 +37,7 @@ const drinks: Drinks[] = [
     name: "Expresso Americano",
     description: "Expresso diluído, menos intenso que o tradicional",
     price: 990,
-    category: DrinkCategory.TRADITIONAL,
+    category: "tradicional",
     isFeatured: false,
     image: require("@assets/catalogue/americano.png"),
   },
@@ -47,7 +47,7 @@ const drinks: Drinks[] = [
     name: "Expresso Cremoso",
     description: "Café expresso tradicional com espuma cremosa",
     price: 990,
-    category: DrinkCategory.TRADITIONAL,
+    category: "tradicional",
     isFeatured: false,
     image: require("@assets/catalogue/expresso-cremoso.png"),
   },
@@ -57,7 +57,7 @@ const drinks: Drinks[] = [
     name: "Latte",
     description: "Café expresso com o dobro de leite e espuma cremosa",
     price: 990,
-    category: DrinkCategory.TRADITIONAL,
+    category: "tradicional",
     isFeatured: true,
     image: require("@assets/catalogue/latte.png"),
   },
@@ -67,7 +67,7 @@ const drinks: Drinks[] = [
     name: "Expresso Gelado",
     description: "Bebida preparada com café expresso e cubos de gelo",
     price: 990,
-    category: DrinkCategory.TRADITIONAL,
+    category: "tradicional",
     isFeatured: false,
     image: require("@assets/catalogue/cafe-gelado.png"),
   },
@@ -77,7 +77,7 @@ const drinks: Drinks[] = [
     name: "Capuccino",
     description: "Bebida com canela feita de doses de café, leite e espuma",
     price: 990,
-    category: DrinkCategory.SWEET,
+    category: "doce",
     isFeatured: false,
     image: require("@assets/catalogue/capuccino.png"),
   },
@@ -87,7 +87,7 @@ const drinks: Drinks[] = [
     name: "Mochaccino",
     description: "Café expresso com calda de chocolate, pouco leite e espuma",
     price: 990,
-    category: DrinkCategory.SWEET,
+    category: "doce",
     isFeatured: true,
     image: require("@assets/catalogue/mochaccino.png"),
   },
@@ -97,7 +97,7 @@ const drinks: Drinks[] = [
     name: "Chocolate Quente",
     description: "Bebida feita com chocolate dissolvido no leite quente e café",
     price: 990,
-    category: DrinkCategory.SWEET,
+    category: "doce",
     isFeatured: false,
     image: require("@assets/catalogue/chocolate-quente.png"),
   },
@@ -108,7 +108,7 @@ const drinks: Drinks[] = [
     description:
       "Drink gelado de café expresso com rum, creme de leite e hortelã",
     price: 990,
-    category: DrinkCategory.SPECIAL,
+    category: "especial",
     isFeatured: false,
     image: require("@assets/catalogue/cubano.png"),
   },
@@ -118,7 +118,7 @@ const drinks: Drinks[] = [
     name: "Havaiano",
     description: "Bebida adocicada preparada com café e leite de coco",
     price: 990,
-    category: DrinkCategory.SPECIAL,
+    category: "especial",
     isFeatured: false,
     image: require("@assets/catalogue/havaiano.png"),
   },
@@ -128,7 +128,7 @@ const drinks: Drinks[] = [
     name: "Árabe",
     description: "Bebida preparada com grãos de café árabe e especiarias",
     price: 990,
-    category: DrinkCategory.SPECIAL,
+    category: "especial",
     isFeatured: false,
     image: require("@assets/catalogue/arabe.png"),
   },
@@ -138,7 +138,7 @@ const drinks: Drinks[] = [
     name: "Irlandês",
     description: "Bebida a base de café, uísque irlandês, açúcar e chantilly",
     price: 990,
-    category: DrinkCategory.SPECIAL,
+    category: "especial",
     isFeatured: true,
     image: require("@assets/catalogue/irlandes.png"),
   },
@@ -146,22 +146,22 @@ const drinks: Drinks[] = [
 
 const featuredDrinks = drinks.filter((drink) => drink.isFeatured)
 
-function filterDrinksByCategory(category: DrinkCategory) {
+function filterDrinksByCategory(category: string) {
   return drinks.filter((drink) => drink.category === category)
 }
 
 const sectionListDrinks = [
   {
     title: "tradicionais",
-    data: filterDrinksByCategory(DrinkCategory.TRADITIONAL),
+    data: filterDrinksByCategory("tradicional"),
   },
   {
     title: "doces",
-    data: filterDrinksByCategory(DrinkCategory.SWEET),
+    data: filterDrinksByCategory("doce"),
   },
   {
     title: "especiais",
-    data: filterDrinksByCategory(DrinkCategory.SPECIAL),
+    data: filterDrinksByCategory("especial"),
   },
 ]
 

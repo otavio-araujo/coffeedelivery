@@ -1,4 +1,4 @@
-import React, { useRef } from "react"
+import React, { useCallback, useRef } from "react"
 import { useEffect, useState } from "react"
 import { StatusBar } from "expo-status-bar"
 import {
@@ -45,7 +45,11 @@ import { AppRouteProps } from "@routes/app.routes"
 import { DrinkItem } from "@components/DrinkItem"
 import { FilterButtonPill } from "@components/FilterButtonPill"
 import { FeaturedDrinkItem } from "@components/FeaturedDrinkItem"
-import { NavigationProp, useNavigation } from "@react-navigation/native"
+import {
+  NavigationProp,
+  useFocusEffect,
+  useNavigation,
+} from "@react-navigation/native"
 import { useCart } from "../../hooks/useCart"
 
 export function HomeScreen() {
