@@ -1,7 +1,7 @@
 import { Text, TouchableOpacity, View } from "react-native"
 
-import Minus from "phosphor-react-native/src/bold/Minus"
 import Plus from "phosphor-react-native/src/bold/Plus"
+import Minus from "phosphor-react-native/src/bold/Minus"
 import { THEME } from "@styles/theme"
 import { styles } from "./styles"
 import { globalStyles } from "@styles/globals"

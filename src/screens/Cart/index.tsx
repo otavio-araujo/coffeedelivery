@@ -6,6 +6,7 @@ import { NavigationProp, useNavigation } from "@react-navigation/native"
 
 import { styles } from "./styles"
 import { THEME } from "@styles/theme"
+import { globalStyles } from "@styles/globals"
 
 import ShoppingCart from "phosphor-react-native/src/fill/ShoppingCart"
 
@@ -13,8 +14,8 @@ import { AppRouteProps } from "@routes/app.routes"
 import { useCart } from "@hooks/useCart"
 
 import { Header } from "@components/Header"
-import { globalStyles } from "@styles/globals"
 import { Button } from "@components/Button"
+import { CartItemList } from "@components/CartItemList"
 
 export function CartScreen() {
   const navigation: NavigationProp<AppRouteProps> = useNavigation()
@@ -33,11 +34,11 @@ export function CartScreen() {
       <Header handleOnPress={navigation.goBack} headerVariant="cart" />
 
       <FlatList
-        data={[]}
+        data={cart}
         keyExtractor={(item, index) =>
           item.drink.id.toString() + index.toString()
         }
-        renderItem={({ item }) => <Text>{item.drink.name}</Text>}
+        renderItem={({ item }) => <CartItemList product={item} />}
         ListEmptyComponent={() => (
           <View style={styles.emptyContainer}>
             <View style={styles.emptyIconAndTextContainer}>
