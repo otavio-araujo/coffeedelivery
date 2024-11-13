@@ -183,7 +183,10 @@ export function HomeScreen() {
             Porto Alegre, RS
           </Animated.Text>
         </View>
-        <CartButton color={THEME.COLORS.YELLOW_DARK} />
+        <CartButton
+          color={THEME.COLORS.YELLOW_DARK}
+          onPress={() => navigation.navigate("CartScreen")}
+        />
       </Animated.View>
 
       {/* Filter Drinks */}

@@ -64,7 +64,10 @@ export function ProductScreen() {
 
   return (
     <View style={[styles.container, { paddingTop: top }]}>
-      <Header handleOnPress={() => navigation.goBack()} />
+      <Header
+        handleOnPress={() => navigation.goBack()}
+        handleGoToCart={() => navigation.navigate("CartScreen")}
+      />
 
       {/* Product Details */}
       <View style={styles.productDetails}>

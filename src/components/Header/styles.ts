@@ -12,6 +12,12 @@ export const styles = StyleSheet.create({
     backgroundColor: THEME.COLORS.GREY_100,
   },
 
+  headerCartVariantContainer: {
+    backgroundColor: THEME.COLORS.GREY_800,
+    borderBottomWidth: 1,
+    borderBottomColor: THEME.COLORS.GREY_600,
+  },
+
   locationContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -24,5 +30,11 @@ export const styles = StyleSheet.create({
 
   cartContainer: {
     padding: 8,
+  },
+
+  title: {
+    flex: 1,
+    textAlign: "center",
+    marginRight: 32,
   },
 })
