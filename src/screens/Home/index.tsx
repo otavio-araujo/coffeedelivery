@@ -37,7 +37,6 @@ import {
 } from "@assets/data/DrinkDataset"
 
 import MapPin from "phosphor-react-native/src/fill/MapPin"
-import ShoppingCart from "phosphor-react-native/src/fill/ShoppingCart"
 import MagnifyingGlass from "phosphor-react-native/src/regular/MagnifyingGlass"
 
 import { AppRouteProps } from "@routes/app.routes"
@@ -50,7 +49,8 @@ import {
   useFocusEffect,
   useNavigation,
 } from "@react-navigation/native"
-import { useCart } from "../../hooks/useCart"
+import { useCart } from "@hooks/useCart"
+import { CartButton } from "@components/CartButton"
 
 export function HomeScreen() {
   const navigation: NavigationProp<AppRouteProps> = useNavigation()
@@ -183,9 +183,7 @@ export function HomeScreen() {
             Porto Alegre, RS
           </Animated.Text>
         </View>
-        <TouchableOpacity style={styles.cartContainer}>
-          <ShoppingCart size={20} color={THEME.COLORS.YELLOW_DARK} />
-        </TouchableOpacity>
+        <CartButton color={THEME.COLORS.YELLOW_DARK} />
       </Animated.View>
 
       {/* Filter Drinks */}

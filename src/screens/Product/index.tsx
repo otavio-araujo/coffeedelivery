@@ -60,7 +60,6 @@ export function ProductScreen() {
 
   useEffect(() => {
     setDrink(getDrinkById(productID))
-    console.log(cart)
   })
 
   return (

@@ -5,6 +5,7 @@ import { THEME } from "@styles/theme"
 
 import ArrowLeft from "phosphor-react-native/src/bold/ArrowLeft"
 import ShoppingCart from "phosphor-react-native/src/fill/ShoppingCart"
+import { CartButton } from "@components/CartButton"
 
 type HeaderProps = {
   handleOnPress: () => void
@@ -19,9 +20,7 @@ export function Header({ handleOnPress }: HeaderProps) {
       >
         <ArrowLeft size={24} color={THEME.COLORS.WHITE} />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.cartContainer}>
-        <ShoppingCart size={20} color={THEME.COLORS.WHITE} />
-      </TouchableOpacity>
+      <CartButton color={THEME.COLORS.WHITE} />
     </View>
   )
 }

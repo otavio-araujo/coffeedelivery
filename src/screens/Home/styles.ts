@@ -26,10 +26,6 @@ export const styles = StyleSheet.create({
     color: THEME.COLORS.GREY_900,
   },
 
-  cartContainer: {
-    padding: 8,
-  },
-
   searchContainer: {
     gap: 15,
     width: "100%",

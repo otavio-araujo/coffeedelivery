@@ -4,12 +4,13 @@
     "strict": true,
     "paths": {
       "@dtos/*": ["./src/dtos/*"],
-      "@storage/*": ["./src/storage/*"],
       "@utils/*": ["./src/utils/*"],
+      "@hooks/*": ["./src/hooks/*"],
       "@types/*": ["./src/@types/*"],
       "@assets/*": ["./src/assets/*"],
       "@routes/*": ["./src/routes/*"],
       "@styles/*": ["./src/styles/*"],
+      "@storage/*": ["./src/storage/*"],
       "@screens/*": ["./src/screens/*"],
       "@contexts/*": ["./src/contexts/*"],
       "@components/*": ["./src/components/*"]
