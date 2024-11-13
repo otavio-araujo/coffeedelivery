@@ -28,7 +28,9 @@ export function CartScreen() {
   const [totalPrice, setTotalPrice] = useState(0)
 
   function handleCalculateTotalPrice() {
-    setTotalPrice(cart.reduce((acc, item) => acc + item.drink.price, 0))
+    setTotalPrice(
+      cart.reduce((acc, item) => acc + item.drink.price * item.quantity, 0)
+    )
   }
 
   async function handleRemoveProduct(prodcutId: number, size: string) {
