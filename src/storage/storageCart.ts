@@ -13,10 +13,11 @@ export async function loadCart(): Promise<CartDTO[]> {
   return storageCart ? JSON.parse(storageCart) : []
 }
 
-export async function removeCartItemById(productId: number) {
+export async function removeCartItemById(productId: number, size: string) {
   const storageCart = await loadCart()
   const updatedCart = storageCart.filter(
-    (cartItem: CartDTO) => cartItem.drink.id !== productId
+    (cartItem: CartDTO) =>
+      cartItem.drink.id !== productId || cartItem.size !== size
   )
   await saveCart(updatedCart)
 }

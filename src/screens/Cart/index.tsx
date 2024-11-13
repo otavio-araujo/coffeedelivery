@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { StatusBar } from "expo-status-bar"
 import { View, Text, FlatList } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
@@ -16,13 +16,29 @@ import { useCart } from "@hooks/useCart"
 import { Header } from "@components/Header"
 import { Button } from "@components/Button"
 import { CartItemList } from "@components/CartItemList"
+import { removeCartItemById } from "@storage/storageCart"
 
 export function CartScreen() {
   const navigation: NavigationProp<AppRouteProps> = useNavigation()
 
-  const { cart } = useCart()
+  const { cart, loadCartData } = useCart()
 
   const { top } = useSafeAreaInsets()
+
+  const [totalPrice, setTotalPrice] = useState(0)
+
+  function handleCalculateTotalPrice() {
+    setTotalPrice(cart.reduce((acc, item) => acc + item.drink.price, 0))
+  }
+
+  async function handleRemoveProduct(prodcutId: number, size: string) {
+    await removeCartItemById(prodcutId, size)
+    await loadCartData()
+  }
+
+  React.useEffect(() => {
+    handleCalculateTotalPrice()
+  }, [cart])
 
   return (
     <View style={[styles.container, { paddingTop: top }]}>
@@ -38,7 +54,14 @@ export function CartScreen() {
         keyExtractor={(item, index) =>
           item.drink.id.toString() + index.toString()
         }
-        renderItem={({ item }) => <CartItemList product={item} />}
+        renderItem={({ item }) => (
+          <CartItemList
+            product={item}
+            handleRemoveProduct={() =>
+              handleRemoveProduct(item.drink.id, item.size)
+            }
+          />
+        )}
         ListEmptyComponent={() => (
           <View style={styles.emptyContainer}>
             <View style={styles.emptyIconAndTextContainer}>
@@ -56,6 +79,28 @@ export function CartScreen() {
           </View>
         )}
       />
+
+      {cart.length > 0 && (
+        <View style={styles.footerContainer}>
+          <View style={styles.totalContainer}>
+            <Text style={[globalStyles.textMD, globalStyles.textGREY_200]}>
+              Valor total
+            </Text>
+            <Text style={[globalStyles.titleMD, globalStyles.textGREY_200]}>
+              R${" "}
+              {Number(totalPrice / 100)
+                .toFixed(2)
+                .replace(".", ",")}
+            </Text>
+          </View>
+
+          <Button
+            label="confirmar pedido"
+            buttonVariant="confirmOrder"
+            isFullWidth
+          />
+        </View>
+      )}
     </View>
   )
 }

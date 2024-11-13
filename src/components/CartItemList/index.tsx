@@ -13,9 +13,13 @@ import Trash from "phosphor-react-native/src/regular/Trash"
 
 type CartItemListProps = {
   product: CartDTO
+  handleRemoveProduct: () => void
 }
 
-export function CartItemList({ product }: CartItemListProps) {
+export function CartItemList({
+  product,
+  handleRemoveProduct,
+}: CartItemListProps) {
   return (
     <View style={styles.container}>
       {/* Product Image */}
@@ -63,7 +67,10 @@ export function CartItemList({ product }: CartItemListProps) {
           </View>
 
           {/* Delete Button */}
-          <TouchableOpacity style={styles.deleteButtonContainer}>
+          <TouchableOpacity
+            style={styles.deleteButtonContainer}
+            onPress={handleRemoveProduct}
+          >
             <Trash size={20} color={THEME.COLORS.PURPLE} />
           </TouchableOpacity>
         </View>

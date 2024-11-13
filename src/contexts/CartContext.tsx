@@ -7,6 +7,7 @@ export type CartContextDataProps = {
   cart: CartDTO[]
   addProduct: (product: CartDTO) => Promise<void>
   removeProduct: () => Promise<void>
+  loadCartData: () => Promise<void>
 }
 
 type CartContextProviderProps = {
@@ -52,7 +53,9 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
   }, [])
 
   return (
-    <CartContext.Provider value={{ cart, addProduct, removeProduct }}>
+    <CartContext.Provider
+      value={{ cart, addProduct, removeProduct, loadCartData }}
+    >
       {children}
     </CartContext.Provider>
   )
