@@ -94,7 +94,9 @@ export function CartScreen() {
               label="ver catálogo"
               buttonVariant="default"
               isFullWidth
-              onPress={() => navigation.navigate("HomeScreen")}
+              onPress={() =>
+                navigation.navigate("HomeScreen", { notification: undefined })
+              }
             />
           </View>
         )}
@@ -118,6 +120,7 @@ export function CartScreen() {
             label="confirmar pedido"
             buttonVariant="confirmOrder"
             isFullWidth
+            onPress={() => navigation.navigate("OrderConfirmationScreen")}
           />
         </View>
       )}

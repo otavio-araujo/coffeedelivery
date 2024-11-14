@@ -6,7 +6,7 @@ import {
 } from "@react-navigation/native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
-import { AppRouteProps } from "@routes/app.routes"
+import { AppRouteProps, NotificationProps } from "@routes/app.routes"
 
 import { styles } from "./styles"
 
@@ -52,6 +52,14 @@ export function ProductScreen() {
       size: productSize,
     }
     await addProduct(product)
+
+    const notification: NotificationProps = {
+      productName: drink.name,
+      productSize: productSize,
+      productQuantity: productQuantity,
+    }
+
+    navigation.navigate("HomeScreen", { notification })
   }
 
   async function remove() {

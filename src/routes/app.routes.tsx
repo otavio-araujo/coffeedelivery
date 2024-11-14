@@ -5,16 +5,26 @@ import { HomeScreen } from "@screens/Home"
 import { CartScreen } from "@screens/Cart"
 import { SplashScreen } from "@screens/Splash"
 import { ProductScreen } from "@screens/Product"
+import { OrderConfirmation } from "@screens/OrderConfirmation"
 
 const { Navigator, Screen } = createNativeStackNavigator<AppRouteProps>()
 
+export type NotificationProps = {
+  productName: string
+  productSize: string
+  productQuantity: number
+}
+
 export type AppRouteProps = {
-  HomeScreen: undefined
+  HomeScreen: {
+    notification: NotificationProps | undefined
+  }
   SplashScreen: undefined
   ProductScreen: {
     productID: number
   }
   CartScreen: undefined
+  OrderConfirmationScreen: undefined
 }
 
 export function AppRoutes() {
@@ -29,6 +39,7 @@ export function AppRoutes() {
         <Screen name="HomeScreen" component={HomeScreen} />
         <Screen name="ProductScreen" component={ProductScreen} />
         <Screen name="CartScreen" component={CartScreen} />
+        <Screen name="OrderConfirmationScreen" component={OrderConfirmation} />
       </Navigator>
     </GestureHandlerRootView>
   )

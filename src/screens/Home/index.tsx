@@ -15,11 +15,15 @@ import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 import { Canvas, Rect } from "@shopify/react-native-skia"
 import Animated, {
+  EntryExitTransition,
   Extrapolation,
+  FadeIn,
   FadeInDown,
   FadeInRight,
+  FadeInUp,
   interpolate,
   interpolateColor,
+  useAnimatedRef,
   useAnimatedScrollHandler,
   useAnimatedStyle,
   useSharedValue,
@@ -37,9 +41,11 @@ import {
 } from "@assets/data/DrinkDataset"
 
 import MapPin from "phosphor-react-native/src/fill/MapPin"
+import ArrowRight from "phosphor-react-native/src/regular/ArrowRight"
+import ShoppingCart from "phosphor-react-native/src/fill/ShoppingCart"
 import MagnifyingGlass from "phosphor-react-native/src/regular/MagnifyingGlass"
 
-import { AppRouteProps } from "@routes/app.routes"
+import { AppRouteProps, NotificationProps } from "@routes/app.routes"
 
 import { DrinkItem } from "@components/DrinkItem"
 import { FilterButtonPill } from "@components/FilterButtonPill"
@@ -48,12 +54,26 @@ import {
   NavigationProp,
   useFocusEffect,
   useNavigation,
+  useRoute,
 } from "@react-navigation/native"
 import { useCart } from "@hooks/useCart"
 import { CartButton } from "@components/CartButton"
 
+type RouteParamsProps = {
+  notification: NotificationProps | undefined
+}
+
 export function HomeScreen() {
   const navigation: NavigationProp<AppRouteProps> = useNavigation()
+
+  const { notification } = useRoute().params as RouteParamsProps
+
+  const [hasNotification, setHasNotification] = useState(false)
+
+  const fadeInDown = FadeInDown.duration(300).withCallback((finished) => {
+    if (finished) {
+    }
+  })
 
   const { cart } = useCart()
 
@@ -160,6 +180,16 @@ export function HomeScreen() {
       duration: 500,
     })
   }, [])
+
+  useEffect(() => {
+    if (notification) {
+      setHasNotification(true)
+
+      setTimeout(() => {
+        setHasNotification(false)
+      }, 3000)
+    }
+  }, [notification])
 
   return (
     <View style={[styles.container, { paddingTop: top }]}>
@@ -360,6 +390,55 @@ export function HomeScreen() {
           </Animated.View>
         )}
       />
+
+      {hasNotification && notification !== undefined && (
+        <Animated.View
+          style={styles.notificationContainer}
+          layout={EntryExitTransition.duration(1000)
+            .delay(500)
+            .entering(FadeInDown.duration(300))
+            .exiting(FadeInUp.duration(300))}
+        >
+          <View style={styles.cartIconContainer}>
+            <View style={styles.cartIconBadgeContainer}>
+              <Text style={[globalStyles.textXS, globalStyles.textWHITE]}>
+                {cart.length}
+              </Text>
+            </View>
+            <ShoppingCart size={24} color={THEME.COLORS.WHITE} />
+          </View>
+
+          <View style={styles.messageContainer}>
+            <Text style={[globalStyles.textSM, globalStyles.textGREY_400]}>
+              {notification.productQuantity}{" "}
+              {notification.productQuantity === 1 ? "café " : "cafés "}
+              <Text style={{ fontWeight: "bold" }}>
+                {notification.productName}
+              </Text>{" "}
+              de{" "}
+              <Text style={{ fontWeight: "bold" }}>
+                {notification.productSize}
+              </Text>
+            </Text>
+            <Text style={[globalStyles.textSM, globalStyles.textGREY_400]}>
+              {notification.productQuantity === 1
+                ? "adicionado "
+                : "adicionados "}
+              ao carrinho
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            style={styles.goToCartContainer}
+            onPress={() => navigation.navigate("CartScreen")}
+          >
+            <Text style={[globalStyles.textBUTTON, globalStyles.textPURPLE]}>
+              VER
+            </Text>
+            <ArrowRight size={16} color={THEME.COLORS.PURPLE} />
+          </TouchableOpacity>
+        </Animated.View>
+      )}
     </View>
   )
 }

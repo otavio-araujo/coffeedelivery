@@ -44,7 +44,7 @@ export function SplashScreen() {
 
   function goToHome() {
     setTimeout(() => {
-      navigation.navigate("HomeScreen")
+      navigation.navigate("HomeScreen", { notification: undefined })
     }, 700)
   }
 
