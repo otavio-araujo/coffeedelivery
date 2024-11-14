@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react"
+import React, { useRef } from "react"
 import { useEffect, useState } from "react"
 import { StatusBar } from "expo-status-bar"
 import {
@@ -12,6 +12,8 @@ import {
   View,
 } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
+
+import Toast from "react-native-toast-message"
 
 import { Canvas, Rect } from "@shopify/react-native-skia"
 import Animated, {
@@ -155,6 +157,23 @@ export function HomeScreen() {
     }
   })
 
+  function showToast() {
+    if (notification !== undefined) {
+      Toast.show({
+        type: "notificationToast",
+        position: "bottom",
+        bottomOffset: 0,
+        props: {
+          productName: notification.productName,
+          productSize: notification.productSize,
+          productQuantity: notification.productQuantity,
+          cartLength: cart.length,
+          handleNavigation: () => navigation.navigate("CartScreen"),
+        },
+      })
+    }
+  }
+
   function handleSelectedDrinkFilter(category: string, sectionIndex: number) {
     setSelectedDrinkFilter(category)
 
@@ -182,12 +201,8 @@ export function HomeScreen() {
   }, [])
 
   useEffect(() => {
-    if (notification) {
-      setHasNotification(true)
-
-      setTimeout(() => {
-        setHasNotification(false)
-      }, 3000)
+    if (notification !== undefined) {
+      showToast()
     }
   }, [notification])
 
@@ -390,55 +405,6 @@ export function HomeScreen() {
           </Animated.View>
         )}
       />
-
-      {hasNotification && notification !== undefined && (
-        <Animated.View
-          style={styles.notificationContainer}
-          layout={EntryExitTransition.duration(1000)
-            .delay(500)
-            .entering(FadeInDown.duration(300))
-            .exiting(FadeInUp.duration(300))}
-        >
-          <View style={styles.cartIconContainer}>
-            <View style={styles.cartIconBadgeContainer}>
-              <Text style={[globalStyles.textXS, globalStyles.textWHITE]}>
-                {cart.length}
-              </Text>
-            </View>
-            <ShoppingCart size={24} color={THEME.COLORS.WHITE} />
-          </View>
-
-          <View style={styles.messageContainer}>
-            <Text style={[globalStyles.textSM, globalStyles.textGREY_400]}>
-              {notification.productQuantity}{" "}
-              {notification.productQuantity === 1 ? "café " : "cafés "}
-              <Text style={{ fontWeight: "bold" }}>
-                {notification.productName}
-              </Text>{" "}
-              de{" "}
-              <Text style={{ fontWeight: "bold" }}>
-                {notification.productSize}
-              </Text>
-            </Text>
-            <Text style={[globalStyles.textSM, globalStyles.textGREY_400]}>
-              {notification.productQuantity === 1
-                ? "adicionado "
-                : "adicionados "}
-              ao carrinho
-            </Text>
-          </View>
-
-          <TouchableOpacity
-            style={styles.goToCartContainer}
-            onPress={() => navigation.navigate("CartScreen")}
-          >
-            <Text style={[globalStyles.textBUTTON, globalStyles.textPURPLE]}>
-              VER
-            </Text>
-            <ArrowRight size={16} color={THEME.COLORS.PURPLE} />
-          </TouchableOpacity>
-        </Animated.View>
-      )}
     </View>
   )
 }

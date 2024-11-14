@@ -1,5 +1,6 @@
 import React from "react"
 import { StatusBar } from "expo-status-bar"
+import Toast from "react-native-toast-message"
 
 import { useFonts } from "expo-font"
 import { Baloo2_700Bold } from "@expo-google-fonts/baloo-2"
@@ -8,8 +9,15 @@ import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto"
 import { Routes } from "@routes/index"
 
 import { THEME } from "@styles/theme"
+
 import LoadingIndicator from "@components/LoadingIndicator"
+
 import { CartContextProvider } from "./src/contexts/CartContext"
+import {
+  NotificationToast,
+  NotificationToastProps,
+} from "@components/NotificationToast"
+import { Text, View } from "react-native"
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -22,6 +30,18 @@ export default function App() {
     return <LoadingIndicator />
   }
 
+  const toastConfig = {
+    notificationToast: ({ props }: any) => (
+      <NotificationToast
+        productName={props.productName}
+        productSize={props.productSize}
+        productQuantity={props.productQuantity}
+        cartLength={props.cartLength}
+        handleNavigation={props.handleNavigation}
+      />
+    ),
+  }
+
   return (
     <>
       <StatusBar
@@ -32,6 +52,7 @@ export default function App() {
       <CartContextProvider>
         <Routes />
       </CartContextProvider>
+      <Toast config={toastConfig} />
     </>
   )
 }
