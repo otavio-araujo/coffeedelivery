@@ -1,63 +1,58 @@
-import React, { useRef } from "react"
-import { useEffect, useState } from "react"
+import React from "react"
+import { useRef } from "react"
+import { useState } from "react"
+import { useEffect } from "react"
+
 import { StatusBar } from "expo-status-bar"
-import {
-  Dimensions,
-  FlatList,
-  Image,
-  SectionList,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native"
+
+import { Text } from "react-native"
+import { View } from "react-native"
+import { Image } from "react-native"
+import { FlatList } from "react-native"
+import { TextInput } from "react-native"
+import { Dimensions } from "react-native"
+import { SectionList } from "react-native"
+
+import { useRoute } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native"
+import { NavigationProp } from "@react-navigation/native"
+
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 import Toast from "react-native-toast-message"
 
+import { AppRouteProps, NotificationProps } from "@routes/app.routes"
+
 import { Canvas, Rect } from "@shopify/react-native-skia"
-import Animated, {
-  EntryExitTransition,
-  Extrapolation,
-  FadeIn,
-  FadeInDown,
-  FadeInRight,
-  FadeInUp,
-  interpolate,
-  interpolateColor,
-  useAnimatedRef,
-  useAnimatedScrollHandler,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from "react-native-reanimated"
+
+import Animated from "react-native-reanimated"
+import { FadeInDown } from "react-native-reanimated"
+import { withTiming } from "react-native-reanimated"
+import { interpolate } from "react-native-reanimated"
+import { FadeInRight } from "react-native-reanimated"
+import { Extrapolation } from "react-native-reanimated"
+import { useSharedValue } from "react-native-reanimated"
+import { useAnimatedStyle } from "react-native-reanimated"
+import { interpolateColor } from "react-native-reanimated"
+import { useAnimatedScrollHandler } from "react-native-reanimated"
 
 import { styles } from "./styles"
 import { THEME } from "@styles/theme"
 import { globalStyles } from "@styles/globals"
 
-import {
-  sectionListDrinks,
-  featuredDrinks,
-  filterCategories,
-} from "@assets/data/DrinkDataset"
+import { featuredDrinks } from "@assets/data/DrinkDataset"
+import { filterCategories } from "@assets/data/DrinkDataset"
+import { sectionListDrinks } from "@assets/data/DrinkDataset"
 
 import MapPin from "phosphor-react-native/src/fill/MapPin"
 import MagnifyingGlass from "phosphor-react-native/src/regular/MagnifyingGlass"
 
-import { AppRouteProps, NotificationProps } from "@routes/app.routes"
-
 import { DrinkItem } from "@components/DrinkItem"
+import { CartButton } from "@components/CartButton"
 import { FilterButtonPill } from "@components/FilterButtonPill"
 import { FeaturedDrinkItem } from "@components/FeaturedDrinkItem"
-import {
-  NavigationProp,
-  useNavigation,
-  useRoute,
-} from "@react-navigation/native"
+
 import { useCart } from "@hooks/useCart"
-import { CartButton } from "@components/CartButton"
-import { CustomToast } from "@components/CustomToast"
 
 type RouteParamsProps = {
   notification: NotificationProps | undefined
@@ -68,13 +63,6 @@ export function HomeScreen() {
 
   const { notification } = useRoute().params as RouteParamsProps
 
-  const [hasNotification, setHasNotification] = useState(false)
-
-  const fadeInDown = FadeInDown.duration(300).withCallback((finished) => {
-    if (finished) {
-    }
-  })
-
   const { cart } = useCart()
 
   const { top } = useSafeAreaInsets()
@@ -82,7 +70,6 @@ export function HomeScreen() {
   const BG_RECTANGLE_HEIGHT = 344
 
   const windowWidth = Dimensions.get("window").width
-  const PAGE_WIDTH = windowWidth / 2
 
   const SHOW_HIDE_FILTER_HEADERS = 510
 
