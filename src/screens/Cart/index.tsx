@@ -7,11 +7,13 @@ import { View } from "react-native"
 import { Text } from "react-native"
 import { FlatList } from "react-native"
 
+import Toast from "react-native-toast-message"
+
+import { useSafeAreaInsets } from "react-native-safe-area-context"
+
 import { useNavigation } from "@react-navigation/native"
 import { NavigationProp } from "@react-navigation/native"
 import { AppRouteProps } from "@routes/app.routes"
-
-import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 import { styles } from "./styles"
 import { THEME } from "@styles/theme"
@@ -45,18 +47,62 @@ export function CartScreen() {
   }
 
   async function handleRemoveProduct(prodcutId: number, size: string) {
-    await removeCartItemById(prodcutId, size)
-    await loadCartData()
+    try {
+      await removeCartItemById(prodcutId, size)
+      await loadCartData()
+
+      Toast.show({
+        type: "customToast",
+        props: {
+          type: "success",
+          title: "Feito!",
+          message: "Produto removido do carrinho.",
+        },
+      })
+    } catch (error) {
+      Toast.show({
+        type: "customToast",
+        props: {
+          type: "error",
+          title: "Erro",
+          message: "Não foi possível remover o produto do carrinho.",
+        },
+      })
+    }
   }
 
   async function handleAddProduct(prodcutId: number, size: string) {
-    await incrementCartItemQuantityById(prodcutId, size)
-    await loadCartData()
+    try {
+      await incrementCartItemQuantityById(prodcutId, size)
+      await loadCartData()
+    } catch (error) {
+      Toast.show({
+        type: "customToast",
+        props: {
+          type: "error",
+          title: "Erro",
+          message:
+            "Não foi possível aumentar a quantidade do produto no carrinho.",
+        },
+      })
+    }
   }
 
   async function handleSubtractProduct(prodcutId: number, size: string) {
-    await decrementCartItemQuantityById(prodcutId, size)
-    await loadCartData()
+    try {
+      await decrementCartItemQuantityById(prodcutId, size)
+      await loadCartData()
+    } catch (error) {
+      Toast.show({
+        type: "customToast",
+        props: {
+          type: "error",
+          title: "Erro",
+          message:
+            "Não foi possível diminuir a quantidade do produto no carrinho.",
+        },
+      })
+    }
   }
 
   React.useEffect(() => {
