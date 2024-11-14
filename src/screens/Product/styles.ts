@@ -47,6 +47,7 @@ export const styles = StyleSheet.create({
   productImage: {
     width: 295,
     height: 335,
+    zIndex: 1,
   },
 
   productActionsContainer: {
@@ -56,7 +57,6 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 40,
     width: "100%",
     height: "100%",
-    zIndex: -1,
     gap: 8,
   },
 
