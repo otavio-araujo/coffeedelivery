@@ -22,6 +22,34 @@ export async function removeCartItemById(productId: number, size: string) {
   await saveCart(updatedCart)
 }
 
+export async function incrementCartItemQuantityById(
+  productId: number,
+  size: string
+) {
+  const storageCart = await loadCart()
+  const updatedCart = storageCart.map((cartItem: CartDTO) => {
+    if (cartItem.drink.id === productId && cartItem.size === size) {
+      return { ...cartItem, quantity: cartItem.quantity + 1 }
+    }
+    return cartItem
+  })
+  await saveCart(updatedCart)
+}
+
+export async function decrementCartItemQuantityById(
+  productId: number,
+  size: string
+) {
+  const storageCart = await loadCart()
+  const updatedCart = storageCart.map((cartItem: CartDTO) => {
+    if (cartItem.drink.id === productId && cartItem.size === size) {
+      return { ...cartItem, quantity: cartItem.quantity - 1 }
+    }
+    return cartItem
+  })
+  await saveCart(updatedCart)
+}
+
 export async function removeAll() {
   await AsyncStorage.removeItem(CART_STORAGE)
 }

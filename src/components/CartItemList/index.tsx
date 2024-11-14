@@ -14,11 +14,15 @@ import Trash from "phosphor-react-native/src/regular/Trash"
 type CartItemListProps = {
   product: CartDTO
   handleRemoveProduct: () => void
+  handleAddProduct: () => void
+  handleSubtractProduct: () => void
 }
 
 export function CartItemList({
   product,
   handleRemoveProduct,
+  handleAddProduct,
+  handleSubtractProduct,
 }: CartItemListProps) {
   return (
     <View style={styles.container}>
@@ -48,8 +52,9 @@ export function CartItemList({
           {/* Quantity */}
           <View style={styles.quantityContainer}>
             <TouchableOpacity
+              disabled={product.quantity === 1}
               style={styles.quantityButtonContainer}
-              onPress={() => {}}
+              onPress={handleSubtractProduct}
             >
               <Minus size={20} color={THEME.COLORS.PURPLE} />
             </TouchableOpacity>
@@ -60,7 +65,7 @@ export function CartItemList({
 
             <TouchableOpacity
               style={styles.quantityButtonContainer}
-              onPress={() => {}}
+              onPress={handleAddProduct}
             >
               <Plus size={20} color={THEME.COLORS.PURPLE} />
             </TouchableOpacity>

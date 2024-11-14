@@ -16,7 +16,11 @@ import { useCart } from "@hooks/useCart"
 import { Header } from "@components/Header"
 import { Button } from "@components/Button"
 import { CartItemList } from "@components/CartItemList"
-import { removeCartItemById } from "@storage/storageCart"
+import {
+  decrementCartItemQuantityById,
+  incrementCartItemQuantityById,
+  removeCartItemById,
+} from "@storage/storageCart"
 
 export function CartScreen() {
   const navigation: NavigationProp<AppRouteProps> = useNavigation()
@@ -35,6 +39,16 @@ export function CartScreen() {
 
   async function handleRemoveProduct(prodcutId: number, size: string) {
     await removeCartItemById(prodcutId, size)
+    await loadCartData()
+  }
+
+  async function handleAddProduct(prodcutId: number, size: string) {
+    await incrementCartItemQuantityById(prodcutId, size)
+    await loadCartData()
+  }
+
+  async function handleSubtractProduct(prodcutId: number, size: string) {
+    await decrementCartItemQuantityById(prodcutId, size)
     await loadCartData()
   }
 
@@ -61,6 +75,10 @@ export function CartScreen() {
             product={item}
             handleRemoveProduct={() =>
               handleRemoveProduct(item.drink.id, item.size)
+            }
+            handleAddProduct={() => handleAddProduct(item.drink.id, item.size)}
+            handleSubtractProduct={() =>
+              handleSubtractProduct(item.drink.id, item.size)
             }
           />
         )}
