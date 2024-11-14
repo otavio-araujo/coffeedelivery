@@ -5,9 +5,10 @@ import WarningCircle from "phosphor-react-native/src/regular/WarningCircle"
 import XCircle from "phosphor-react-native/src/regular/XCircle"
 import Info from "phosphor-react-native/src/regular/Info"
 
-import { styles } from "./styles"
 import { THEME } from "@styles/theme"
 import { globalStyles } from "@styles/globals"
+
+import { styles } from "./styles"
 
 type Props = {
   title: string
