@@ -11,6 +11,8 @@ import { NavigationProp } from "@react-navigation/native"
 
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
+import Toast from "react-native-toast-message"
+
 import { AppRouteProps, NotificationProps } from "@routes/app.routes"
 
 import { styles } from "./styles"
@@ -57,19 +59,26 @@ export function ProductScreen() {
       quantity: productQuantity,
       size: productSize,
     }
-    await addProduct(product)
+    try {
+      await addProduct(product)
 
-    const notification: NotificationProps = {
-      productName: drink.name,
-      productSize: productSize,
-      productQuantity: productQuantity,
+      const notification: NotificationProps = {
+        productName: drink.name,
+        productSize: productSize,
+        productQuantity: productQuantity,
+      }
+
+      navigation.navigate("HomeScreen", { notification })
+    } catch (error) {
+      Toast.show({
+        type: "customToast",
+        props: {
+          title: "Erro - Adicionar ao carrinho",
+          message: "Não foi possível adicionar o produto ao carrinho",
+          type: "error",
+        },
+      })
     }
-
-    navigation.navigate("HomeScreen", { notification })
-  }
-
-  async function remove() {
-    await removeProduct()
   }
 
   useEffect(() => {
