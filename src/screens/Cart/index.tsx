@@ -1,8 +1,17 @@
-import React, { useState } from "react"
+import React from "react"
+import { useState } from "react"
+
 import { StatusBar } from "expo-status-bar"
-import { View, Text, FlatList } from "react-native"
+
+import { View } from "react-native"
+import { Text } from "react-native"
+import { FlatList } from "react-native"
+
+import { useNavigation } from "@react-navigation/native"
+import { NavigationProp } from "@react-navigation/native"
+import { AppRouteProps } from "@routes/app.routes"
+
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { NavigationProp, useNavigation } from "@react-navigation/native"
 
 import { styles } from "./styles"
 import { THEME } from "@styles/theme"
@@ -10,17 +19,15 @@ import { globalStyles } from "@styles/globals"
 
 import ShoppingCart from "phosphor-react-native/src/fill/ShoppingCart"
 
-import { AppRouteProps } from "@routes/app.routes"
 import { useCart } from "@hooks/useCart"
 
 import { Header } from "@components/Header"
 import { Button } from "@components/Button"
 import { CartItemList } from "@components/CartItemList"
-import {
-  decrementCartItemQuantityById,
-  incrementCartItemQuantityById,
-  removeCartItemById,
-} from "@storage/storageCart"
+
+import { removeCartItemById } from "@storage/storageCart"
+import { decrementCartItemQuantityById } from "@storage/storageCart"
+import { incrementCartItemQuantityById } from "@storage/storageCart"
 
 export function CartScreen() {
   const navigation: NavigationProp<AppRouteProps> = useNavigation()
