@@ -1,20 +1,24 @@
-import { Image, Text, View } from "react-native"
-import { NavigationProp, useNavigation } from "@react-navigation/native"
+import { View } from "react-native"
+
+import { useNavigation } from "@react-navigation/native"
+import { NavigationProp } from "@react-navigation/native"
 
 import { AppRouteProps } from "@routes/app.routes"
 
 import { styles } from "./styles"
 import { globalStyles } from "@styles/globals"
 
-import { Button } from "@components/Button"
 import { removeAll } from "@storage/storageCart"
+
 import { useCart } from "@hooks/useCart"
-import Animated, {
-  BounceInLeft,
-  FadeIn,
-  FadeInDown,
-  SlideInLeft,
-} from "react-native-reanimated"
+import { Button } from "@components/Button"
+
+import Animated from "react-native-reanimated"
+import { FadeIn } from "react-native-reanimated"
+import { FadeInDown } from "react-native-reanimated"
+import { SlideInLeft } from "react-native-reanimated"
+
+import Toast from "react-native-toast-message"
 
 export function OrderConfirmation() {
   const navigation: NavigationProp<AppRouteProps> = useNavigation()
@@ -22,9 +26,20 @@ export function OrderConfirmation() {
   const { loadCartData } = useCart()
 
   async function handleGoToHome() {
-    await removeAll()
-    await loadCartData()
-    navigation.navigate("HomeScreen", { notification: undefined })
+    try {
+      await removeAll()
+      await loadCartData()
+      navigation.navigate("HomeScreen", { notification: undefined })
+    } catch (error) {
+      Toast.show({
+        type: "customToast",
+        props: {
+          title: "Erro",
+          message: "Não foi possível limpar o carrinho",
+          type: "error",
+        },
+      })
+    }
   }
 
   return (
