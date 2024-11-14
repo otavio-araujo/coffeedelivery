@@ -170,6 +170,15 @@ export function HomeScreen() {
         },
       })
     }
+
+    // Toast.show({
+    //   type: "customToast",
+    //   props: {
+    //     title: "Opa!",
+    //     message: "Você tem um novo pedido em aberto!",
+    //     type: "success",
+    //   },
+    // })
   }
 
   function handleSelectedDrinkFilter(category: string, sectionIndex: number) {
