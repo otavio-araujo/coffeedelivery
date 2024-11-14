@@ -106,4 +106,8 @@ export const globalStyles = StyleSheet.create({
   textPURPLE: {
     color: THEME.COLORS.PURPLE,
   },
+
+  textBold: {
+    fontWeight: "bold",
+  },
 })

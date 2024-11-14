@@ -18,6 +18,7 @@ import {
   NotificationToastProps,
 } from "@components/NotificationToast"
 import { Text, View } from "react-native"
+import { CustomToast } from "@components/CustomToast"
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -30,6 +31,12 @@ export default function App() {
     return <LoadingIndicator />
   }
 
+  ;<CustomToast
+    title="Carrinho"
+    type="success"
+    message="Café adicionado ao carrinho"
+  />
+
   const toastConfig = {
     notificationToast: ({ props }: any) => (
       <NotificationToast
@@ -38,6 +45,14 @@ export default function App() {
         productQuantity={props.productQuantity}
         cartLength={props.cartLength}
         handleNavigation={props.handleNavigation}
+      />
+    ),
+
+    customToast: ({ props }: any) => (
+      <CustomToast
+        title={props.title}
+        message={props.message}
+        type={props.type}
       />
     ),
   }

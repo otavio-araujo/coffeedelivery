@@ -43,8 +43,6 @@ import {
 } from "@assets/data/DrinkDataset"
 
 import MapPin from "phosphor-react-native/src/fill/MapPin"
-import ArrowRight from "phosphor-react-native/src/regular/ArrowRight"
-import ShoppingCart from "phosphor-react-native/src/fill/ShoppingCart"
 import MagnifyingGlass from "phosphor-react-native/src/regular/MagnifyingGlass"
 
 import { AppRouteProps, NotificationProps } from "@routes/app.routes"
@@ -54,12 +52,12 @@ import { FilterButtonPill } from "@components/FilterButtonPill"
 import { FeaturedDrinkItem } from "@components/FeaturedDrinkItem"
 import {
   NavigationProp,
-  useFocusEffect,
   useNavigation,
   useRoute,
 } from "@react-navigation/native"
 import { useCart } from "@hooks/useCart"
 import { CartButton } from "@components/CartButton"
+import { CustomToast } from "@components/CustomToast"
 
 type RouteParamsProps = {
   notification: NotificationProps | undefined
