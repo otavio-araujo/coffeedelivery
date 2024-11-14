@@ -1,24 +1,30 @@
-import { Button, Image, Text, View } from "react-native"
-import {
-  NavigationProp,
-  useNavigation,
-  useRoute,
-} from "@react-navigation/native"
+import { useState } from "react"
+import { useEffect } from "react"
+
+import { Text } from "react-native"
+import { View } from "react-native"
+import { Image } from "react-native"
+
+import { useRoute } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native"
+import { NavigationProp } from "@react-navigation/native"
+
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 import { AppRouteProps, NotificationProps } from "@routes/app.routes"
 
 import { styles } from "./styles"
-
-import { Header } from "@components/Header"
-import { Pill } from "@components/Pill"
 import { globalStyles } from "@styles/globals"
-import { Drinks, getDrinkById } from "@assets/data/DrinkDataset"
-import { useEffect, useState } from "react"
-import { ProductSizeButton } from "@components/ProductSizeButton"
+
+import { Pill } from "@components/Pill"
+import { Header } from "@components/Header"
 import { AddToCart } from "@components/AddToCart"
-import { useCart } from "../../hooks/useCart"
+import { ProductSizeButton } from "@components/ProductSizeButton"
+
 import { CartDTO } from "@dtos/CartDTO"
+import { Drinks, getDrinkById } from "@assets/data/DrinkDataset"
+
+import { useCart } from "@hooks/useCart"
 
 type RouteParamsProps = {
   productID: number
