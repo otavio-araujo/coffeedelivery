@@ -5,7 +5,7 @@ import { useEffect } from "react"
 
 import { StatusBar } from "expo-status-bar"
 
-import { Text } from "react-native"
+import { Text, Touchable, TouchableOpacity } from "react-native"
 import { View } from "react-native"
 import { Image } from "react-native"
 import { FlatList } from "react-native"
@@ -62,6 +62,10 @@ export function HomeScreen() {
   const navigation: NavigationProp<AppRouteProps> = useNavigation()
 
   const { notification } = useRoute().params as RouteParamsProps
+
+  const [sectionListData, setSectionListData] = useState(sectionListDrinks)
+
+  let searchQueryRef = useRef<string>("")
 
   const { cart } = useCart()
 
@@ -179,6 +183,35 @@ export function HomeScreen() {
     navigation.navigate("ProductScreen", { productID })
   }
 
+  function handleSearch() {
+    if (searchQueryRef.current === "") {
+      setSectionListData(sectionListDrinks)
+      return
+    }
+
+    const updatedSectionList = sectionListDrinks.map((section) => {
+      return {
+        title: section.title,
+        data: section.data.filter((drink) => {
+          return drink.name
+            .toLowerCase()
+            .includes(searchQueryRef.current.toLowerCase())
+        }),
+      }
+    })
+    setSectionListData(updatedSectionList)
+
+    searchQueryRef.current = ""
+
+    if (sectionListRef.current) {
+      sectionListRef.current.scrollToLocation({
+        sectionIndex: 0,
+        itemIndex: 1,
+        animated: true,
+      })
+    }
+  }
+
   useEffect(() => {
     topRectangleHeight.value = withTiming(BG_RECTANGLE_HEIGHT, {
       duration: 500,
@@ -245,7 +278,7 @@ export function HomeScreen() {
 
       <SectionList
         ref={sectionListRef}
-        sections={sectionListDrinks}
+        sections={sectionListData}
         showsVerticalScrollIndicator={false}
         scrollEnabled
         onScroll={(event) => onScrollHandler(event)}
@@ -286,12 +319,15 @@ export function HomeScreen() {
                 Encontre o café perfeito para qualquer hora do dia
               </Text>
               <View style={styles.searchInputContainer}>
-                <MagnifyingGlass size={16} color={THEME.COLORS.GREY_400} />
+                <TouchableOpacity onPress={handleSearch}>
+                  <MagnifyingGlass size={16} color={THEME.COLORS.GREY_400} />
+                </TouchableOpacity>
 
                 <TextInput
                   style={[styles.searchInput, globalStyles.textSM]}
                   placeholder="Pesquisar"
                   placeholderTextColor={THEME.COLORS.GREY_400}
+                  onChangeText={(e) => (searchQueryRef.current = e)}
                 />
               </View>
               <Image

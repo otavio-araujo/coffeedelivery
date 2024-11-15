@@ -1,11 +1,15 @@
 import { THEME } from "@styles/theme"
-import { StyleSheet } from "react-native"
+import { Dimensions, Platform, StyleSheet } from "react-native"
 
 export const styles = StyleSheet.create({
   notificationContainer: {
     flexDirection: "row",
 
     bottom: -10,
+
+    zIndex: 1,
+
+    top: Platform.OS === "android" ? Dimensions.get("window").height - 100 : 10,
 
     gap: 20,
 
@@ -20,8 +24,8 @@ export const styles = StyleSheet.create({
     backgroundColor: THEME.COLORS.WHITE,
 
     shadowColor: "#000",
-    shadowOpacity: 1,
-    shadowRadius: 16,
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
     shadowOffset: { width: 0, height: -2 },
   },
 
